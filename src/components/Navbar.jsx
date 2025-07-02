@@ -1,50 +1,59 @@
-import React, { useState, useEffect } from 'react'; // Import useState and useEffect
+import React, { useState, useEffect } from 'react';
 import '../Navbar.css';
-import { FiLock } from 'react-icons/fi';
+// Import the new icons we need for the mobile menu
+import { FiLock, FiMenu, FiX } from 'react-icons/fi';
 
 const Navbar = () => {
-  // State to track whether user has scrolled
   const [scrolled, setScrolled] = useState(false);
+  // NEW: State to manage the open/closed state of the mobile menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Effect to handle scroll event
   useEffect(() => {
     const handleScroll = () => {
-      // If user scrolls more than 10px, set scrolled to true, otherwise false
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 10);
     };
-
-    // Add event listener when the component mounts
     window.addEventListener('scroll', handleScroll);
-
-    // Clean up the event listener when the component unmounts
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []); // The empty array ensures this effect runs only once on mount
+  }, []);
+
+  // NEW: Toggles the menu state
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+  
+  // NEW: Closes the menu (used when a link is clicked)
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  }
 
   return (
-    // Conditionally apply the 'scrolled' class
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <a href="/" className="logo">
           Nadhir.dev
         </a>
         
+        {/* No structural changes here, just added a class conditionally */}
         <div className="navbar-right">
-          <ul className="nav-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/skills">Skills</a></li>
-            <li><a href="/projects">Projects</a></li>
-            <li><a href="/experience">Experience</a></li>
-            <li><a href="/contact">Contact</a></li>
+          {/* Add 'open' class when menu is toggled on mobile */}
+          <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+            {/* Added onClick to close the menu after navigation */}
+            <li><a href="/" onClick={closeMenu}>Home</a></li>
+            <li><a href="/skills" onClick={closeMenu}>Skills</a></li>
+            <li><a href="/projects" onClick={closeMenu}>Projects</a></li>
+            <li><a href="/experience" onClick={closeMenu}>Experience</a></li>
+            <li><a href="/contact" onClick={closeMenu}>Contact</a></li>
           </ul>
 
           <button className="secure-lock" aria-label="Secure Connection">
             <FiLock size={20} />
+          </button>
+
+          {/* NEW: Hamburger menu button, will be hidden on desktop by CSS */}
+          <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
+            {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
           </button>
         </div>
       </div>
