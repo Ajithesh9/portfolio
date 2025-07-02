@@ -1,19 +1,56 @@
+/* --- Body Styles (ensure these are in your global CSS) --- */
+body {
+  background-color: #111827;
+  background-image: radial-gradient(at 80% 20%, hsla(215, 70%, 50%, 0.25) 0px, transparent 50%),
+                    radial-gradient(at 20% 90%, hsla(330, 60%, 45%, 0.2) 0px, transparent 50%);
+  color: white;
+  font-family: sans-serif;
+}
+
 /* --- Navigation Bar --- */
 .navbar {
-  width: 100%;
-  max-width: 1200px;
+  /* --- CHANGE: Make the navbar stick to the top --- */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Span the full viewport width */
+  z-index: 100;
+  
+  /* --- Glassmorphism Effect --- */
+  background: rgba(23, 23, 23, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Only bottom border is needed */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* NEW: Container for the content inside the navbar */
+.navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 0;
-  z-index: 2; /* Ensures navbar is above other content */
+  
+  /* Constrain the width and center it */
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  
+  /* Padding for the content inside */
+  padding: 1.2rem 2rem;
 }
+
 
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
   color: #FFFFFF;
   text-decoration: none;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
 }
 
 .nav-links {
@@ -25,7 +62,7 @@
 }
 
 .nav-links a {
-  color: #A1A1AA; /* A slightly muted color for nav links */
+  color: #A1A1AA;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -36,15 +73,45 @@
   color: #FFFFFF;
 }
 
-.theme-toggle {
+.secure-lock {
+  position: relative;
   background: transparent;
   border: none;
   color: #A1A1AA;
   cursor: pointer;
   padding: 0;
+  display: flex;
+  align-items: center;
   transition: color 0.3s ease;
 }
 
-.theme-toggle:hover {
+.secure-lock:hover {
+  color: #34D399;
+}
+
+.secure-lock::after {
+  content: 'Secure Connection';
+  position: absolute;
+  
+  /* --- CHANGE: Position tooltip below the icon --- */
+  top: calc(100% + 10px); /* 100% of the button's height + 10px gap */
+  left: 50%;
+  transform: translateX(-50%);
+
+  background-color: #27272A;
   color: #FFFFFF;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 10;
+}
+
+.secure-lock:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
