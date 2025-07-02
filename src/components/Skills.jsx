@@ -1,58 +1,61 @@
+// components/Skills.jsx
+
 import React from 'react';
 import '../Skills.css';
 
-const CARDS = [
-  {
-    title: "What I can do",
-    items: [
-      "UI/UX Design",
-      "Fullstack Web Development",
-      "Mobile App Development",
-      "Database Design",
-      "API Integration",
-    ]
-  },
-  {
-    title: "Tools I Use",
-    items: [
-      "Tailwind CSS, React, TypeScript",
-      "Node.js, Fastify, MongoDB, PostgreSQL",
-      "Figma, Framer, Photoshop",
-    ]
-  },
-  {
-    title: "UI/UX Design",
-    items: [
-      "User‑Centered Design",
-      "Modern & Clean UI",
-      "Responsive Layouts",
-      "Wireframes & Prototypes",
-    ]
-  }
+// --- IMAGE IMPORTS ---
+import htmlLogo from '../assets/skills/HTML5.svg';
+import cssLogo from '../assets/skills/CSS3.svg';
+import jsLogo from '../assets/skills/JavaScript.svg';
+import reactLogo from '../assets/skills/React.svg';           // renamed alias
+import nodeLogo from '../assets/skills/Node.js.svg';
+import tailwindLogo from '../assets/skills/Tailwind_CSS.svg';
+import NPM from '../assets/skills/NPM.svg';
+import figmaLogo from '../assets/skills/Figma.svg';
+import postmanLogo from '../assets/skills/Postman.svg';
+import MongoDB from '../assets/skills/MongoDB.svg';
+import Google_Cloud from '../assets/skills/Google_Cloud.svg';
+import gitLogo from '../assets/skills/Git.svg';
+import githubLogo from '../assets/skills/GitHub.svg';
+import pythonLogo from '../assets/skills/Python.svg';   // also better alias
+import javaLogo from '../assets/skills/Java.svg';
+import viteLogo from '../assets/skills/VITE.js.svg';
+
+const skillsData = [
+  { imgSrc: htmlLogo,    name: 'HTML5' },
+  { imgSrc: cssLogo,     name: 'CSS3' },
+  { imgSrc: jsLogo,      name: 'JavaScript' },
+  { imgSrc: reactLogo,   name: 'React' },
+  { imgSrc: nodeLogo,    name: 'Node.js' },
+  { imgSrc: tailwindLogo,name: 'Tailwind CSS' },
+  { imgSrc: NPM,         name: 'NPM' },
+  { imgSrc: figmaLogo,   name: 'Figma' },
+  { imgSrc: postmanLogo, name: 'Postman' },
+  { imgSrc: MongoDB,     name: 'MongoDB' },
+  { imgSrc: Google_Cloud,name: 'Google Cloud' },
+  { imgSrc: gitLogo,     name: 'Git' },
+  { imgSrc: githubLogo,  name: 'GitHub' },
+  { imgSrc: pythonLogo,  name: 'Python' },
+  { imgSrc: javaLogo,    name: 'Java' },
+  { imgSrc: viteLogo,    name: 'Vite.js' },
 ];
 
-export default function Skills() {
-  return (
-    <section id="skills" className="skills">
-      <div className="container">
-        <h2 className="skills-title">Building Digital Experiences</h2>
-        <p className="skills-sub">
-          I specialize in creating stunning user interfaces and developing high‑quality applications that stand out.
-        </p>
-        <div className="skills-cards">
-          {CARDS.map(c => (
-            <div className="skills-card" key={c.title}>
-              <h3>{c.title}</h3>
-              <ul>
-                {c.items.map(i => <li key={i}>{i}</li>)}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="skills-footer">
-          <a href="#projects" className="btn-view">View My Projects</a>
-        </div>
+const Skills = () => (
+  <section className="skills-section" id="skills">
+    <div className="skills-container">
+      <div className="skills-header">
+        <h2>Technologies I'm Using</h2>
+        <p>A look at the primary tools and technologies in my day-to-day development.</p>
       </div>
-    </section>
-  );
-}
+      <div className="skills-grid">
+        {skillsData.map((skill, idx) => (
+          <div className="skill-card" key={idx}>
+            <img src={skill.imgSrc} alt={`${skill.name} logo`} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+export default Skills;

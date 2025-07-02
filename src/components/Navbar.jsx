@@ -31,10 +31,7 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
-        <a href="/" className="logo">
-          Nadhir.dev
-        </a>
-        
+        <a href="/" className="logo">Ajithesh</a>
         {/* No structural changes here, just added a class conditionally */}
         <div className="navbar-right">
           {/* Add 'open' class when menu is toggled on mobile */}
