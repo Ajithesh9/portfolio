@@ -1,19 +1,25 @@
-import React from "react";
+import React from 'react';
+import '../Navbar.css';
 
-export default function Navbar() {
-  const links = ["Home", "Projects", "Skills", "Contact"];
+// Importing the moon icon from react-icons
+import { FiMoon } from 'react-icons/fi';
+
+const Navbar = () => {
   return (
-    <nav>
-      <div className="container inner">
-        <div className="brand">Ajithesh</div>
-        <ul>
-          {links.map((l) => (
-            <li key={l}>
-              <a href={`#${l.toLowerCase()}`}>{l}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <nav className="navbar">
+      <a href="/" className="logo">
+        Nadhir.dev
+      </a>
+      <ul className="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <button className="theme-toggle" aria-label="Toggle theme">
+        <FiMoon size={20} />
+      </button>
     </nav>
   );
-}
+};
+
+export default Navbar;
