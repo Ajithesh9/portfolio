@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;700&display=swap');
+
 /* Reset & Base */
 main-content {
    padding-top: 80px;
@@ -6,7 +8,7 @@ main-content {
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body, #root { height: 100%; }
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Sora", sans-serif;
   background: #0F111A;
   color: #E0E6ED;
   overflow-x: hidden;
