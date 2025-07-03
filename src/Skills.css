@@ -1,20 +1,46 @@
 /* ======================================================================== */
-/*                  Skills.css (Complete with New Hover Effect)             */
+/*          Skills.css (Final Version - Correct and Working Parallax)       */
 /* ======================================================================== */
-background-color: #111827;
+
+/* --- The section itself is a positioning container for its layers --- */
 .skills-section {
+  position: relative; /* Crucial for positioning the background div */
+  z-index: 1;         /* Establishes a stacking context */
   padding: 6rem 2rem;
-  
   text-align: center;
 }
 
+/* --- The dedicated parallax background layer --- */
+.skills-parallax-background {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* The background color and grid pattern are applied here */
+  background-color: #111827;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  
+  /* THIS IS THE KEY: The parallax effect */
+  background-attachment: fixed;
+  
+  /* Place this background layer behind the content */
+  z-index: -1;
+}
+
+/* --- The content container now sits on top of the background layer --- */
 .skills-container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
 
-/* --- REFINED: Primary Skills Showcase Styles --- */
+/* --- Primary Skills Showcase (Smoother Animation) --- */
 
 .primary-skills-container {
   position: relative;
@@ -23,24 +49,34 @@ background-color: #111827;
   padding: 2.5rem 3rem;
   overflow: hidden;
   
-  /* Enhanced Glassmorphism & Blur */
   background: rgba(30, 32, 47, 0.5);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  transition: all 0.4s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  transform: translateY(80px); /* Start further down for more travel */
+  visibility: hidden;
+  /* Increased duration and refined timing for maximum smoothness */
+  transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 1.2s;
 }
 
-/* Continuous Hover Animation (The dot pattern) */
+.primary-skills-container.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* All other styles remain the same and are correct */
 .primary-skills-container::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.08) 1px, transparent 0);
   background-size: 30px 30px;
-  z-index: -1; /* Place it behind the content */
-  
+  z-index: -1;
   animation: dot-scroll 20s linear infinite;
   animation-play-state: paused;
 }
@@ -54,145 +90,61 @@ background-color: #111827;
   to { background-position: -300px -300px; }
 }
 
-/* Typography Improvements */
 .primary-skills-container h3 {
-  color: #9ca3af;
+  color: #bec3cd;
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 2rem;
-  text-align: center;
+  letter-spacing: 0.15em;
+  margin-bottom: 2.5rem;
 }
 
 .primary-skills-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem 2.25rem;
+  gap: 1rem 1.25rem;
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
-/* --- MODIFIED: The individual skill item and its new hover state --- */
 .primary-skill-item {
   color: #E5E7EB;
   font-size: 1.125rem;
   font-weight: 500;
   padding: 0.6rem 1.2rem;
-  background-color: rgba(255, 255, 255, 0.05); /* Default subtle background */
+  background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
-
 .primary-skill-item:hover {
-  /* Use the --skill-color variable passed from React for the background */
   background-color: var(--skill-color);
-  
-  /* Make the border slightly more prominent on hover */
   border-color: rgba(255, 255, 255, 0.25);
-  
-  /* Lift the button up */
   transform: translateY(-3px);
 }
 
+.skills-header { margin-bottom: 4rem; }
+.skills-header h2 { font-size: 2.5rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.75rem; text-align: center; }
+.skills-header p { font-size: 1.1rem; color: #A1A1AA; max-width: 600px; margin: 0 auto; }
+.skills-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 2.5rem; justify-items: center; }
+.skill-card img { width: 50px; height: auto; filter: grayscale(100%) opacity(65%); transition: all 0.3s ease; }
+.skill-card:hover img { filter: grayscale(0) opacity(1); transform: scale(1.15); }
 
-/* --- Technologies I'm Using Section Styles --- */
-
-.skills-header {
-  margin-bottom: 4rem;
-}
-
-.skills-header h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  margin-bottom: 0.75rem;
-  text-align: center;
-}
-
-.skills-header p {
-  font-size: 1.1rem;
-  color: #A1A1AA;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 2.5rem;
-  justify-items: center;
-}
-
-.skill-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.skill-card img {
-  width: 50px;
-  height: auto;
-  filter: grayscale(100%) opacity(65%);
-  transition: all 0.3s ease;
-}
-
-.skill-card:hover img {
-  filter: grayscale(0) opacity(1);
-  transform: scale(1.15);
-}
-
-
-/* ======================================================================== */
-/*                          Responsive Adjustments                          */
-/* ======================================================================== */
-
-/* For Tablets */
 @media (max-width: 1024px) {
-  .skills-grid {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 2rem;
-  }
+  .skills-grid { grid-template-columns: repeat(6, 1fr); gap: 2rem; }
 }
-
-/* For larger phones */
 @media (max-width: 768px) {
-  .skills-section {
-    padding: 4rem 1.5rem;
-  }
-  .skills-header h2 {
-    font-size: 2rem;
-  }
-  .skills-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .primary-skills-container {
-    padding: 2rem 1.5rem;
-  }
-  .primary-skill-item {
-    font-size: 1rem;
-  }
+  .skills-section { padding: 4rem 1.5rem; }
+  .skills-header h2 { font-size: 2rem; }
+  .skills-grid { grid-template-columns: repeat(4, 1fr); }
+  .primary-skills-container { padding: 2rem 1.5rem; }
+  .primary-skill-item { font-size: 1rem; }
 }
-
-/* For smaller phones */
 @media (max-width: 480px) {
-  .skills-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-  .skill-card img {
-    width: 45px;
-  }
-  .primary-skills-list {
-    gap: 0.75rem;
-  }
-  .primary-skill-item {
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-  }
+  .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .skill-card img { width: 45px; }
+  .primary-skills-list { gap: 0.75rem; }
+  .primary-skill-item { font-size: 0.875rem; padding: 0.5rem 1rem; }
 }

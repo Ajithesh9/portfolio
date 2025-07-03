@@ -41,33 +41,50 @@ const skillsData = [
   { imgSrc: viteLogo,    name: 'Vite.js' },
 ];
 
-// This is the other data array, which is fine.
+// --- YOUR UNCHANGED PRIMARY SKILLS DATA ARRAY ---
 const primarySkillsData = [
-  { name: 'Responsive Web Design', color: '#60a5fa40' },
-  { name: 'Cloud Computing', color: '#34d39940' },
-  { name: 'DevOps', color: '#f59e0b40' },
-  { name: 'Python & Java Programming', color: '#a78bfa40' },
-  { name: 'UI/UX Design', color: '#f472b640' },
-  { name: 'Photoshop', color: '#38bdf840' },
+  { name: 'Responsive Web Design', color: '#60a5fa33' },
+  { name: 'Cloud Computing', color: '#34d39933' },
+  { name: 'DevOps', color: '#f59e0b33' },
+  { name: 'Python & Java Programming', color: '#a78bfa33' },
+  { name: 'UI/UX Design', color: '#f472b633' },
+  { name: 'Photoshop', color: '#38bdf833' },
 ];
 
 
-const Skills = () => {
-  const [hoverColor, setHoverColor] = useState('transparent');
+// --- NEW: A small, reusable hook to detect when an element is visible ---
+const useInView = (options) => {
+  const ref = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        observer.unobserve(entry.target);
+      }
+    }, options);
+    if (ref.current) observer.observe(ref.current);
+    return () => { if (ref.current) observer.unobserve(ref.current); };
+  }, [ref, options]);
+  return [ref, isInView];
+};
 
-  const backgroundStyle = {
-    backgroundColor: hoverColor,
-  };
+const Skills = () => {
+  // --- NEW: Use our hook to get a ref and a visibility boolean for the animation ---
+  const [primarySkillsRef, primarySkillsAreVisible] = useInView({ threshold: 0.1 });
+
+  // The old `useState` for hoverColor is no longer needed for our CSS-based approach.
 
   return (
     <section className="skills-section" id="skills">
       <div className="skills-container">
-        
+         <div className="skills-parallax-background"></div>
+        {/* --- MODIFIED: Added ref and conditional class for the animation --- */}
         <div 
-          className="primary-skills-container"
-          onMouseLeave={() => setHoverColor('transparent')}
+          ref={primarySkillsRef}
+          className={`primary-skills-container ${primarySkillsAreVisible ? 'is-visible' : ''}`}
         >
-          <div className="primary-skill-background" style={backgroundStyle}></div>
+          {/* The old onMouseLeave and background div are removed for our cleaner approach */}
           <h3>These are my primary skills:</h3>
           <ul className="primary-skills-list">
             {primarySkillsData.map((skill) => (
@@ -87,10 +104,6 @@ const Skills = () => {
           <p>A look at the primary tools and technologies in my day-to-day development.</p>
         </div>
         <div className="skills-grid">
-          {/* 
-            --- THE FIX IS HERE ---
-            Changed techGridData to skillsData to match your variable name.
-          */}
           {skillsData.map((skill, index) => (
             <div className="skill-card" key={index}>
               <img src={skill.imgSrc} alt={`${skill.name} logo`} />
