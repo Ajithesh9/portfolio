@@ -77,8 +77,8 @@ const Skills = () => {
 
   return (
     <section className="skills-section" id="skills">
+      <div className="skills-parallax-background"></div>
       <div className="skills-container">
-         <div className="skills-parallax-background"></div>
         {/* --- MODIFIED: Added ref and conditional class for the animation --- */}
         <div 
           ref={primarySkillsRef}
