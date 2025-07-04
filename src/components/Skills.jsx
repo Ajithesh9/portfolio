@@ -1,6 +1,4 @@
-// components/Skills.jsx
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../Skills.css';
 
 // Technology logos imports
@@ -23,70 +21,126 @@ import viteLogo from '../assets/skills/VITE.js.svg';
 
 // Skills data array
 const skillsData = [
-  { imgSrc: htmlLogo, name: 'HTML5' },
-  { imgSrc: cssLogo, name: 'CSS3' },
-  { imgSrc: jsLogo, name: 'JavaScript' },
-  { imgSrc: reactLogo, name: 'React' },
-  { imgSrc: nodeLogo, name: 'Node.js' },
-  { imgSrc: tailwindLogo, name: 'Tailwind CSS' },
-  { imgSrc: NPM, name: 'NPM' },
-  { imgSrc: figmaLogo, name: 'Figma' },
-  { imgSrc: postmanLogo, name: 'Postman' },
-  { imgSrc: MongoDB, name: 'MongoDB' },
-  { imgSrc: Google_Cloud, name: 'Google Cloud' },
-  { imgSrc: gitLogo, name: 'Git' },
-  { imgSrc: githubLogo, name: 'GitHub' },
-  { imgSrc: pythonLogo, name: 'Python' },
-  { imgSrc: javaLogo, name: 'Java' },
-  { imgSrc: viteLogo, name: 'Vite.js' },
+  { imgSrc: htmlLogo, name: 'HTML5', borderColor: '#E34F26' },
+  { imgSrc: cssLogo, name: 'CSS3', borderColor: '#1572B6' },
+  { imgSrc: jsLogo, name: 'JavaScript', borderColor: '#F7DF1E' },
+  { imgSrc: reactLogo, name: 'React', borderColor: '#61DAFB' },
+  { imgSrc: nodeLogo, name: 'Node.js', borderColor: '#339933' },
+  { imgSrc: tailwindLogo, name: 'Tailwind CSS', borderColor: '#06B6D4' },
+  { imgSrc: NPM, name: 'NPM', borderColor: '#CB3837' },
+  { imgSrc: figmaLogo, name: 'Figma', borderColor: '#F24E1E' },
+  { imgSrc: postmanLogo, name: 'Postman', borderColor: '#FF6C37' },
+  { imgSrc: MongoDB, name: 'MongoDB', borderColor: '#47A248' },
+  { imgSrc: Google_Cloud, name: 'Google Cloud', borderColor: '#4285F4' },
+  { imgSrc: gitLogo, name: 'Git', borderColor: '#F05032' },
+  { imgSrc: githubLogo, name: 'GitHub', borderColor: '#e6e6e6' },
+  { imgSrc: pythonLogo, name: 'Python', borderColor: '#3776AB' },
+  { imgSrc: javaLogo, name: 'Java', borderColor: '#ED8B00' },
+  { imgSrc: viteLogo, name: 'Vite.js', borderColor: '#646CFF' },
 ];
 
-// Primary skills with descriptions (removed icons)
 const primarySkillsData = [
   {
-    title: 'Frontend Development',
-    description: 'Building responsive and interactive user interfaces with modern frameworks',
-    category: 'development'
-  },
-  {
-    title: 'Backend Development',
-    description: 'Creating robust server-side applications and APIs',
-    category: 'development'
+    title: 'Responsive Web Design',
+    description: 'Creating adaptive layouts that work seamlessly across all devices and screen sizes',
+    borderColor: '#3CE5AB'
   },
   {
     title: 'Cloud Computing',
-    description: 'Deploying and managing applications on cloud platforms',
-    category: 'cloud'
+    description: 'Deploying and managing scalable applications on cloud platforms',
+    borderColor: '#4285F4'
+  },
+  {
+    title: 'DevOps',
+    description: 'Streamlining development workflows and automated deployment processes',
+    borderColor: '#FF6C37'
+  },
+  {
+    title: 'Python & Java Programming',
+    description: 'Building robust backend systems and applications with enterprise-grade languages',
+    borderColor: '#3776AB'
   },
   {
     title: 'UI/UX Design',
     description: 'Crafting intuitive and visually appealing user experiences',
-    category: 'design'
+    borderColor: '#F24E1E'
   },
   {
-    title: 'DevOps & Tools',
-    description: 'Streamlining development workflows and deployment processes',
-    category: 'tools'
-  },
-  {
-    title: 'Problem Solving',
-    description: 'Analytical thinking and creative solutions for complex challenges',
-    category: 'soft'
+    title: 'Photoshop',
+    description: 'Professional image editing and digital design creation',
+    borderColor: '#31A8FF'
   },
 ];
 
 const Skills = () => {
-  const [activeSkill, setActiveSkill] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [animatedBorder, setAnimatedBorder] = useState(false);
+  const [visibleCards, setVisibleCards] = useState(new Set());
+  const skillsRef = useRef(null);
 
-  const handleSkillClick = (index) => {
-    setActiveSkill(activeSkill === index ? null : index);
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (!animatedBorder) {
+            setAnimatedBorder(true);
+          }
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (skillsRef.current) {
+      observer.observe(skillsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [animatedBorder]);
+
+  useEffect(() => {
+    const cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index);
+            setVisibleCards(prev => new Set(prev).add(index));
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const cards = document.querySelectorAll('.skill-card');
+    cards.forEach((card) => cardObserver.observe(card));
+
+    return () => cardObserver.disconnect();
+  }, []);
 
   return (
-    <section className="skills-section" id="skills">
+    <section className="skills-section" id="skills" ref={skillsRef}>
+      {/* Animated background particles */}
+      <div className="bg-particles">
+        {[...Array(50)].map((_, i) => (
+          <div
+            key={i}
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 10}s`,
+              animationDuration: `${5 + Math.random() * 10}s`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Animated border */}
+      <div className={`animated-border ${animatedBorder ? 'animate' : ''}`} />
+
       <div className="skills-container">
         {/* Skills Header */}
-        <div className="skills-header">
+        <div className={`skills-header ${isVisible ? 'visible' : ''}`}>
           <h2>Skills & Expertise</h2>
           <p>
             A comprehensive overview of my technical skills and areas of expertise
@@ -94,33 +148,43 @@ const Skills = () => {
         </div>
 
         {/* Primary Skills Section */}
-        <div className="primary-skills-container">
-          <h3>Core Competencies</h3>
+        <div className={`primary-skills-container ${isVisible ? 'visible' : ''}`}>
           <div className="primary-skills-grid">
             {primarySkillsData.map((skill, index) => (
               <div
                 key={index}
-                className={`primary-skill-card ${
-                  activeSkill === index ? 'active' : ''
-                }`}
-                onClick={() => handleSkillClick(index)}
+                className="primary-skill-card"
+                style={{ 
+                  animationDelay: `${index * 0.1}s`,
+                  '--border-color': skill.borderColor
+                }}
               >
-                <h4>{skill.title}</h4>
-                <p>{skill.description}</p>
+                <div className="card-content">
+                  <h4>{skill.title}</h4>
+                  <p>{skill.description}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Technology Stack */}
-        <div className="tech-stack-container">
+        <div className={`tech-stack-container ${isVisible ? 'visible' : ''}`}>
           <div className="tech-stack-header">
             <h3>Technology Stack</h3>
             <p>Tools and technologies I work with regularly</p>
           </div>
           <div className="skills-grid">
             {skillsData.map((skill, index) => (
-              <div className="skill-card" key={index}>
+              <div 
+                className={`skill-card ${visibleCards.has(index) ? 'visible' : ''}`}
+                key={index}
+                data-index={index}
+                style={{ 
+                  animationDelay: `${index * 0.05}s`,
+                  '--border-color': skill.borderColor
+                }}
+              >
                 <img src={skill.imgSrc} alt={`${skill.name} logo`} />
                 <h5>{skill.name}</h5>
               </div>
