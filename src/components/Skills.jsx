@@ -1,9 +1,9 @@
 // components/Skills.jsx
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import '../Skills.css';
 
-// --- YOUR UNCHANGED IMPORTS ---
+// Technology logos imports
 import htmlLogo from '../assets/skills/HTML5.svg';
 import cssLogo from '../assets/skills/CSS3.svg';
 import jsLogo from '../assets/skills/JavaScript.svg';
@@ -21,94 +21,111 @@ import pythonLogo from '../assets/skills/Python.svg';
 import javaLogo from '../assets/skills/Java.svg';
 import viteLogo from '../assets/skills/VITE.js.svg';
 
-// --- YOUR UNCHANGED SKILLS DATA ARRAY ---
+// Skills data array
 const skillsData = [
-  { imgSrc: htmlLogo,    name: 'HTML5' },
-  { imgSrc: cssLogo,     name: 'CSS3' },
-  { imgSrc: jsLogo,      name: 'JavaScript' },
-  { imgSrc: reactLogo,   name: 'React' },
-  { imgSrc: nodeLogo,    name: 'Node.js' },
-  { imgSrc: tailwindLogo,name: 'Tailwind CSS' },
-  { imgSrc: NPM,         name: 'NPM' },
-  { imgSrc: figmaLogo,   name: 'Figma' },
+  { imgSrc: htmlLogo, name: 'HTML5' },
+  { imgSrc: cssLogo, name: 'CSS3' },
+  { imgSrc: jsLogo, name: 'JavaScript' },
+  { imgSrc: reactLogo, name: 'React' },
+  { imgSrc: nodeLogo, name: 'Node.js' },
+  { imgSrc: tailwindLogo, name: 'Tailwind CSS' },
+  { imgSrc: NPM, name: 'NPM' },
+  { imgSrc: figmaLogo, name: 'Figma' },
   { imgSrc: postmanLogo, name: 'Postman' },
-  { imgSrc: MongoDB,     name: 'MongoDB' },
-  { imgSrc: Google_Cloud,name: 'Google Cloud' },
-  { imgSrc: gitLogo,     name: 'Git' },
-  { imgSrc: githubLogo,  name: 'GitHub' },
-  { imgSrc: pythonLogo,  name: 'Python' },
-  { imgSrc: javaLogo,    name: 'Java' },
-  { imgSrc: viteLogo,    name: 'Vite.js' },
+  { imgSrc: MongoDB, name: 'MongoDB' },
+  { imgSrc: Google_Cloud, name: 'Google Cloud' },
+  { imgSrc: gitLogo, name: 'Git' },
+  { imgSrc: githubLogo, name: 'GitHub' },
+  { imgSrc: pythonLogo, name: 'Python' },
+  { imgSrc: javaLogo, name: 'Java' },
+  { imgSrc: viteLogo, name: 'Vite.js' },
 ];
 
-// --- YOUR UNCHANGED PRIMARY SKILLS DATA ARRAY ---
+// Primary skills with descriptions (removed icons)
 const primarySkillsData = [
-  { name: 'Responsive Web Design', color: '#60a5fa33' },
-  { name: 'Cloud Computing', color: '#34d39933' },
-  { name: 'DevOps', color: '#f59e0b33' },
-  { name: 'Python & Java Programming', color: '#a78bfa33' },
-  { name: 'UI/UX Design', color: '#f472b633' },
-  { name: 'Photoshop', color: '#38bdf833' },
+  {
+    title: 'Frontend Development',
+    description: 'Building responsive and interactive user interfaces with modern frameworks',
+    category: 'development'
+  },
+  {
+    title: 'Backend Development',
+    description: 'Creating robust server-side applications and APIs',
+    category: 'development'
+  },
+  {
+    title: 'Cloud Computing',
+    description: 'Deploying and managing applications on cloud platforms',
+    category: 'cloud'
+  },
+  {
+    title: 'UI/UX Design',
+    description: 'Crafting intuitive and visually appealing user experiences',
+    category: 'design'
+  },
+  {
+    title: 'DevOps & Tools',
+    description: 'Streamlining development workflows and deployment processes',
+    category: 'tools'
+  },
+  {
+    title: 'Problem Solving',
+    description: 'Analytical thinking and creative solutions for complex challenges',
+    category: 'soft'
+  },
 ];
-
-
-// --- NEW: A small, reusable hook to detect when an element is visible ---
-const useInView = (options) => {
-  const ref = useRef(null);
-  const [isInView, setIsInView] = useState(false);
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsInView(true);
-        observer.unobserve(entry.target);
-      }
-    }, options);
-    if (ref.current) observer.observe(ref.current);
-    return () => { if (ref.current) observer.unobserve(ref.current); };
-  }, [ref, options]);
-  return [ref, isInView];
-};
 
 const Skills = () => {
-  // --- NEW: Use our hook to get a ref and a visibility boolean for the animation ---
-  const [primarySkillsRef, primarySkillsAreVisible] = useInView({ threshold: 0.1 });
+  const [activeSkill, setActiveSkill] = useState(null);
 
-  // The old `useState` for hoverColor is no longer needed for our CSS-based approach.
+  const handleSkillClick = (index) => {
+    setActiveSkill(activeSkill === index ? null : index);
+  };
 
   return (
     <section className="skills-section" id="skills">
-      <div className="skills-parallax-background"></div>
       <div className="skills-container">
-        {/* --- MODIFIED: Added ref and conditional class for the animation --- */}
-        <div 
-          ref={primarySkillsRef}
-          className={`primary-skills-container ${primarySkillsAreVisible ? 'is-visible' : ''}`}
-        >
-          {/* The old onMouseLeave and background div are removed for our cleaner approach */}
-          <h3>These are my primary skills:</h3>
-          <ul className="primary-skills-list">
-            {primarySkillsData.map((skill) => (
-              <li 
-                key={skill.name} 
-                className="primary-skill-item"
-                style={{ '--skill-color': skill.color }}
-              >
-                {skill.name}
-              </li>
-            ))}
-          </ul>
+        {/* Skills Header */}
+        <div className="skills-header">
+          <h2>Skills & Expertise</h2>
+          <p>
+            A comprehensive overview of my technical skills and areas of expertise
+          </p>
         </div>
 
-        <div className="skills-header">
-          <h2>Technologies I'm Using</h2>
-          <p>A look at the primary tools and technologies in my day-to-day development.</p>
+        {/* Primary Skills Section */}
+        <div className="primary-skills-container">
+          <h3>Core Competencies</h3>
+          <div className="primary-skills-grid">
+            {primarySkillsData.map((skill, index) => (
+              <div
+                key={index}
+                className={`primary-skill-card ${
+                  activeSkill === index ? 'active' : ''
+                }`}
+                onClick={() => handleSkillClick(index)}
+              >
+                <h4>{skill.title}</h4>
+                <p>{skill.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="skills-grid">
-          {skillsData.map((skill, index) => (
-            <div className="skill-card" key={index}>
-              <img src={skill.imgSrc} alt={`${skill.name} logo`} />
-            </div>
-          ))}
+
+        {/* Technology Stack */}
+        <div className="tech-stack-container">
+          <div className="tech-stack-header">
+            <h3>Technology Stack</h3>
+            <p>Tools and technologies I work with regularly</p>
+          </div>
+          <div className="skills-grid">
+            {skillsData.map((skill, index) => (
+              <div className="skill-card" key={index}>
+                <img src={skill.imgSrc} alt={`${skill.name} logo`} />
+                <h5>{skill.name}</h5>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

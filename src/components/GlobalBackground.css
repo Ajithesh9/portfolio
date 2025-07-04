@@ -1,0 +1,16 @@
+/* src/components/GlobalBackground.css */
+
+.global-background {
+  position: fixed; /* Fixes the element to the viewport, it does not scroll */
+  inset: 0;        /* Makes it cover the entire screen (top/right/bottom/left: 0) */
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;     /* Pushes this layer behind ALL other content */
+
+  /* The grid pattern style */
+  background-color: #111827; /* The base color */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}

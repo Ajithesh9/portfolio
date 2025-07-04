@@ -20,7 +20,7 @@ html, body, #root {
 
 body {
   font-family: "Sora", sans-serif;
-  background: #0F111A; /* This is your global background color */
+  background: #0F111A; /* Keep your original solid background */
   color: #E0E6ED;
   overflow-x: hidden;
 }
@@ -28,7 +28,6 @@ body {
 .no-scrollbar::-webkit-scrollbar { 
   display: none; 
 }
-
 
 /* ======================================================================== */
 /*                         Utility Classes                                  */
@@ -49,7 +48,6 @@ body {
 .fade-in-up {
   animation: fadeInUp 0.8s ease-out both;
 }
-
 
 /* ======================================================================== */
 /*                           Projects Section                               */
@@ -111,13 +109,11 @@ body {
   opacity: .7;
 }
 
-
 /* ======================================================================== */
 /*               NOTE: The conflicting ".skills" block has been             */
 /*               intentionally removed from this file.                      */
 /*               All skill styling is now handled by skills.css.            */
 /* ======================================================================== */
-
 
 /* ======================================================================== */
 /*                            Contact Section                               */
