@@ -1,132 +1,196 @@
-import React, { useState, useEffect, useRef } from 'react';
-import '../Projects.css'
-import { 
-  Layers, 
-  Monitor, 
-  GraduationCap, 
-  User, 
-  FileText, 
+// src/components/Projects.jsx
+
+import React, { useState, useEffect, useRef } from "react";
+import "../Projects.css";
+import {
+  Layers,
+  Monitor,
+  GraduationCap,
+  User,
+  FileText,
   Cloud,
-  ExternalLink,
+  Link,
   Github,
-  Zap
-} from 'lucide-react';
+  Zap,
+} from "lucide-react";
 
 const projectsData = [
   {
     id: 1,
-    title: 'The Productivity Hub',
-    description: 'A comprehensive productivity platform that combines task management, time tracking, and collaboration tools to boost team efficiency.',
-    category: 'Web Application',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
+    title: "The Productivity Hub",
+    description:
+      "A comprehensive platform that combines task management, time tracking, and collaboration tools to boost team efficiency.",
+    category: "Web Application",
+    technologies: ["React", "Node.js", "MongoDB", "Express"],
     icon: Layers,
-    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    accentColor: '#667eea',
-    features: ['Task Management', 'Time Tracking', 'Team Collaboration', 'Analytics Dashboard'],
-    status: 'Completed'
+    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    accentColor: "#667eea",
+    features: [
+      "Task Management",
+      "Time Tracking",
+      "Team Collaboration",
+      "Analytics Dashboard",
+    ],
+    status: "Completed",
+    liveLink: "#",
+    sourceLink: "#",
   },
   {
     id: 2,
-    title: 'CineStream Local',
-    description: 'A local network streaming platform built with Python that allows seamless movie and video streaming within your home network.',
-    category: 'Desktop Application',
-    technologies: ['Python', 'Flask', 'HTML/CSS', 'JavaScript'],
+    title: "CineStream Local",
+    description:
+      "A local network streaming platform built with Python that allows seamless movie and video streaming within your home network.",
+    category: "Desktop Application",
+    technologies: ["Python", "Flask", "HTML/CSS", "JavaScript"],
     icon: Monitor,
-    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    accentColor: '#f093fb',
-    features: ['Local Network Streaming', 'Multi-device Support', 'Media Library', 'Auto-discovery'],
-    status: 'Completed'
+    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    accentColor: "#f093fb",
+    features: [
+      "Local Network Streaming",
+      "Multi-device Support",
+      "Media Library",
+      "Auto-discovery",
+    ],
+    status: "Completed",
+    liveLink: null,
+    sourceLink: "#",
   },
   {
     id: 3,
-    title: 'Aditya CA Academy Portal',
-    description: 'A modern website for Aditya CA Academy featuring student rankings, course information, and administrative tools.',
-    category: 'Website',
-    technologies: ['React', 'CSS3', 'JavaScript', 'API Integration'],
+    title: "Aditya CA Academy Portal",
+    description:
+      "A modern website for Aditya CA Academy featuring student rankings, course information, and administrative tools.",
+    category: "Website",
+    technologies: ["React", "CSS3", "JavaScript", "API Integration"],
     icon: GraduationCap,
-    gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    accentColor: '#4facfe',
-    features: ['Student Rankings', 'Course Catalog', 'Admin Dashboard', 'Responsive Design'],
-    status: 'Live'
+    gradient: "linear-gradient(135deg, #4facfe 0%, #00C2CC 100%)",
+    accentColor: "#4facfe",
+    features: [
+      "Student Rankings",
+      "Course Catalog",
+      "Admin Dashboard",
+      "Responsive Design",
+    ],
+    status: "Live",
+    liveLink: "#",
+    sourceLink: "#",
   },
   {
     id: 4,
-    title: 'Personal Portfolio',
-    description: 'A sleek and modern portfolio website showcasing my skills, projects, and professional journey with interactive animations.',
-    category: 'Portfolio',
-    technologies: ['React', 'CSS3', 'JavaScript', 'Lucide Icons'],
+    title: "Personal Portfolio",
+    description:
+      "A sleek and modern portfolio website showcasing my skills, projects, and professional journey with interactive animations.",
+    category: "Portfolio",
+    technologies: ["React", "CSS3", "JavaScript", "Lucide Icons"],
     icon: User,
-    gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-    accentColor: '#fa709a',
-    features: ['Interactive Animations', 'Responsive Design', 'Modern UI', 'Performance Optimized'],
-    status: 'Live'
+    gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+    accentColor: "#fa709a",
+    features: [
+      "Interactive Animations",
+      "Responsive Design",
+      "Modern UI",
+      "Performance Optimized",
+    ],
+    status: "Live",
+    liveLink: "#",
+    sourceLink: "#",
   },
   {
     id: 5,
-    title: 'PDF Lingua Converter',
-    description: 'An intelligent PDF translation tool that converts documents into multiple languages while preserving formatting and layout.',
-    category: 'Utility Tool',
-    technologies: ['Python', 'ML/AI', 'Translation APIs', 'PDF Processing'],
+    title: "PDF Lingua Converter",
+    description:
+      "An intelligent PDF translation tool that converts documents into multiple languages while preserving formatting and layout.",
+    category: "Utility Tool",
+    technologies: ["Python", "ML/AI", "Translation APIs", "PDF Processing"],
     icon: FileText,
-    gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-    accentColor: '#a8edea',
-    features: ['Multi-language Support', 'Format Preservation', 'Batch Processing', 'AI-powered Translation'],
-    status: 'Open Source'
+    gradient: "linear-gradient(135deg, #86F0C2 0%, #7A3D53 100%)",
+    accentColor: "#a8edea",
+    features: [
+      "Multi-language Support",
+      "Format Preservation",
+      "Batch Processing",
+      "AI-powered Translation",
+    ],
+    status: "Open Source",
+    liveLink: null,
+    sourceLink: "#",
   },
   {
     id: 6,
-    title: 'Weather Forecast App',
-    description: 'A beautiful weather application that provides real-time weather information and forecasts for any location worldwide.',
-    category: 'Mobile App',
-    technologies: ['JavaScript', 'Weather API', 'CSS3', 'Geolocation'],
+    title: "Weather Forecast App",
+    description:
+      "A beautiful weather application that provides real-time weather information and forecasts for any location worldwide.",
+    category: "Mobile App",
+    technologies: ["JavaScript", "Weather API", "CSS3", "Geolocation"],
     icon: Cloud,
-    gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
-    accentColor: '#ffecd2',
-    features: ['Real-time Weather', 'Location Search', 'Weather Forecasts', 'Interactive Maps'],
-    status: 'Completed'
-  }
+    gradient: "linear-gradient(135deg, #ffecd2 0%, #D99A89 100%)",
+    accentColor: "#ffecd2",
+    features: [
+      "Real-time Weather",
+      "Location Search",
+      "Weather Forecasts",
+      "Interactive Maps",
+    ],
+    status: "Completed",
+    liveLink: "#",
+    sourceLink: "#",
+  },
 ];
 
-export default function Projects() {
+const useInView = (options) => {
+  const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [visibleCards, setVisibleCards] = useState(new Set());
-  const sectionRef = useRef(null);
 
   useEffect(() => {
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setIsVisible(true);
-    }, { threshold: 0.1 });
-    obs.observe(sectionRef.current);
-    return () => obs.disconnect();
-  }, []);
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.unobserve(entry.target);
+      }
+    }, options);
 
-  useEffect(() => {
-    const cardObs = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const idx = parseInt(entry.target.dataset.index, 10);
-          setVisibleCards(prev => new Set(prev).add(idx));
-        }
-      });
-    }, { threshold: 0.2 });
-    document.querySelectorAll('.project-card').forEach(card => cardObs.observe(card));
-    return () => cardObs.disconnect();
-  }, []);
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
 
-  const getStatusColor = status => {
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [ref, options]);
+
+  return [ref, isVisible];
+};
+
+const Projects = () => {
+  const [sectionRef, isVisible] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  const getStatusColor = (status) => {
     switch (status) {
-      case 'Live': return '#10B981';
-      case 'Completed': return '#3B82F6';
-      case 'Open Source': return '#8B5CF6';
-      default: return '#6B7280';
+      case "Live":
+        return "#10B981";
+      case "Completed":
+        return "#3B82F6";
+      case "Open Source":
+        return "#8B5CF6";
+      default:
+        return "#6B7280";
     }
   };
 
   return (
-    <section className="projects-section" ref={sectionRef} id="projects">
+    <section
+      className={`projects-section ${isVisible ? "is-visible" : ""}`}
+      ref={sectionRef}
+      id="projects"
+    >
       <div className="bg-grid">
         {[...Array(20)].map((_, i) => (
-          <div key={i} className="grid-line" style={{ '--i': i }} />
+          <div key={i} className="grid-line" style={{ "--i": i }} />
         ))}
       </div>
       <div className="floating-elements">
@@ -138,44 +202,56 @@ export default function Projects() {
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${8 + Math.random() * 4}s`
+              animationDuration: `${8 + Math.random() * 4}s`,
             }}
           />
         ))}
       </div>
-
       <div className="projects-container">
-        <header className={`projects-header ${isVisible ? 'visible' : ''}`}>
+        <header className="projects-header">
           <h2>Featured Projects</h2>
-          <p>Discover my latest work and creative solutions that showcase innovation and technical excellence.</p>
+          <p>
+            Discover my latest work and creative solutions that showcase
+            innovation and technical excellence.
+          </p>
         </header>
 
-        <div className={`projects-grid ${isVisible ? 'visible' : ''}`}>
+        <div className="projects-grid">
           {projectsData.map((project, idx) => {
-            const Icon = project.icon;
+            const IconComponent = project.icon;
             return (
               <div
                 key={project.id}
-                className={`project-card ${visibleCards.has(idx) ? 'visible' : ''}`}
-                data-index={idx}
-                style={{ '--accent-color': project.accentColor }}
+                className="project-card"
+                style={{
+                  "--accent-color": project.accentColor,
+                  animationDelay: `${0.2 + idx * 0.1}s`,
+                }}
               >
                 <div className="project-card-inner">
-                  <div className="hover-overlay" style={{ background: project.gradient }} />
-
-                  <div className="project-header">
-                    <div className="project-icon" style={{ background: project.gradient }}>
-                      <Icon size={24} />
+                  <div
+                    className="hover-overlay"
+                    style={{ background: project.gradient }}
+                  />
+                  <div className="project-header-card">
+                    <div
+                      className="project-icon"
+                      style={{ background: project.gradient }}
+                    >
+                      <IconComponent size={24} />
                     </div>
                     <div className="project-status">
                       <span
                         className="status-dot"
-                        style={{ backgroundColor: getStatusColor(project.status) }}
+                        style={{
+                          backgroundColor: getStatusColor(project.status),
+                        }}
                       />
                       {project.status}
                     </div>
                   </div>
 
+                  {/* --- MODIFIED: project-actions is now inside project-content --- */}
                   <div className="project-content">
                     <h3>{project.title}</h3>
                     <p className="project-description">{project.description}</p>
@@ -184,26 +260,46 @@ export default function Projects() {
                     </div>
                     <div className="tech-stack">
                       {project.technologies.map((t, i) => (
-                        <span key={i} className="tech-tag">{t}</span>
+                        <span key={i} className="tech-tag">
+                          {t}
+                        </span>
                       ))}
                     </div>
                     <div className="project-features">
                       <h4>Key Features:</h4>
                       <ul>
                         {project.features.map((f, i) => (
-                          <li key={i}><Zap size={12}/> {f}</li>
+                          <li key={i}>
+                            <Zap size={12} /> {f}
+                          </li>
                         ))}
                       </ul>
                     </div>
-                  </div>
 
-                  <div className="project-actions">
-                    <button className="action-btn link">
-                      <ExternalLink size={16}/> View Project
-                    </button>
-                    <button className="action-btn github">
-                      <Github size={16}/> GitHub
-                    </button>
+                    <div className="project-actions">
+                      {project.liveLink && (
+                        <a
+                          href={project.liveLink}
+                          className="icon-link"
+                          aria-label="View Project"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Link size={20} />
+                        </a>
+                      )}
+                      {project.sourceLink && (
+                        <a
+                          href={project.sourceLink}
+                          className="icon-link"
+                          aria-label="View Source Code"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github size={20} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -213,4 +309,6 @@ export default function Projects() {
       </div>
     </section>
   );
-}
+};
+
+export default Projects;

@@ -24,13 +24,13 @@ export default function App() {
             /* 3. Projects Section (Renders only once, with its required wrapper) */
         }
 
-        <section className="section projects" > <div className="container" > <Projects /> </div> </section> {
+        <Projects />{
             /* 4. Experience Section (Renders only once, with its required wrapper) */
         }
 
-        <section className="section experience" > <div className="container" > <Experience /> </div> </section> {
+        <Experience /> {
             /* 5. Contact Section (Renders only once, with its required wrapper) */
         }
 
-        <section className="section contact" > <div className="container" > <Contact /> </div> </section> </main> </>);
+        <Contact /></main> </>);
 }
