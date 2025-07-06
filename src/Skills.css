@@ -293,7 +293,7 @@
 }
 
 .tech-stack-header h3 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #FFFFFF;
   margin-bottom: 0.75rem;
@@ -314,7 +314,7 @@
 }
 
 .tech-stack-header p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #A1A1AA;
   max-width: 600px;
   margin: 0 auto;
