@@ -188,6 +188,12 @@ const Projects = () => {
       ref={sectionRef}
       id="projects"
     >
+      {/* Animated Top Border */}
+      <div className="section-top-border">
+        <div className="border-line"></div>
+        <div className="border-glow"></div>
+      </div>
+
       <div className="bg-grid">
         {[...Array(20)].map((_, i) => (
           <div key={i} className="grid-line" style={{ "--i": i }} />
@@ -225,7 +231,7 @@ const Projects = () => {
                 className="project-card"
                 style={{
                   "--accent-color": project.accentColor,
-                  animationDelay: `${0.2 + idx * 0.1}s`,
+                  "--card-index": idx,
                 }}
               >
                 <div className="project-card-inner">
@@ -251,7 +257,6 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* --- MODIFIED: project-actions is now inside project-content --- */}
                   <div className="project-content">
                     <h3>{project.title}</h3>
                     <p className="project-description">{project.description}</p>

@@ -1,5 +1,5 @@
 /* ======================================================================== */
-/*            Projects.css (Fixed - No Side Gaps)                          */
+/*            Projects.css (Enhanced with Border Animation & Fixed Shadows) */
 /* ======================================================================== */
 
 .projects-section {
@@ -8,6 +8,50 @@
   position: relative;
   overflow: hidden;
   min-height: 100vh;
+}
+
+/* ======================================================================== */
+/*                           ANIMATED TOP BORDER                           */
+/* ======================================================================== */
+
+.section-top-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.border-line {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3ce5ab, #66efbf, #3ce5ab, transparent);
+  transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.border-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, rgba(62, 229, 171, 0.3), rgba(102, 239, 191, 0.3), rgba(62, 229, 171, 0.3), transparent);
+  filter: blur(2px);
+  transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.2s;
+}
+
+.projects-section.is-visible .border-line {
+  left: 0;
+}
+
+.projects-section.is-visible .border-glow {
+  left: 0;
 }
 
 /* Background & Animations (Unchanged) */
@@ -81,37 +125,50 @@
   }
 }
 
-/* Container & Header (MODIFIED - No Container Constraint) */
+/* Container & Header (MODIFIED - Enhanced animations) */
 .projects-container {
   position: relative;
   z-index: 2;
-  /* Removed all width and margin constraints */
 }
+
 .projects-header {
   text-align: center;
   margin-bottom: 3rem;
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transform: translateY(50px) scale(0.95);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .projects-section.is-visible .projects-header {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  transition-delay: 0.3s;
 }
+
 .projects-header h2 {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 1rem;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
   position: relative;
   display: inline-block;
-  background: linear-gradient(135deg, #3ce5ab, #66efbf, #3ce5ab);
-  background-size: 200% 200%;
+  background: linear-gradient(#FFFFFF);
+  //background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradientShift 3s ease-in-out infinite;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.projects-section.is-visible .projects-header h2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
+
 @keyframes gradientShift {
   0%,
   100% {
@@ -121,23 +178,40 @@
     background-position: 100% 50%;
   }
 }
+
 .projects-header h2::after {
   content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scaleX(0);
   width: 80px;
   height: 3px;
   background: linear-gradient(90deg, #3ce5ab, #66efbf);
   border-radius: 3px;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.projects-section.is-visible .projects-header h2::after {
+  transform: translateX(-50%) scaleX(1);
+  transition-delay: 0.7s;
+}
+
 .projects-header p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #a1a1aa;
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.projects-section.is-visible .projects-header p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.6s;
 }
 
 /* Grid (MODIFIED - Direct full-width grid) */
@@ -145,20 +219,31 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
-  /* No max-width constraint - let it fill the available space */
 }
 
-/* Card & Card Inner (Unchanged) */
+/* ======================================================================== */
+/*                    ENHANCED CARD ANIMATIONS & Z-INDEX FIX               */
+/* ======================================================================== */
+
 .project-card {
   opacity: 0;
-  transform: translateY(30px) scale(0.98);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: translateY(60px) scale(0.9) rotateX(15deg);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   perspective: 1000px;
+  position: relative;
+  z-index: 1;
 }
+
 .projects-section.is-visible .project-card {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0) scale(1) rotateX(0deg);
+  animation-delay: calc(0.8s + var(--card-index, 0) * 0.15s);
 }
+
+.project-card:hover {
+  z-index: 10; /* Bring hovered card to front */
+}
+
 .project-card-inner {
   background: rgba(26, 31, 42, 0.8);
   border: 2px solid rgba(255, 255, 255, 0.08);
@@ -172,11 +257,18 @@
   flex-direction: column;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
+  /* Fixed shadow that won't overlap */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
+
 .project-card:hover .project-card-inner {
-  transform: translateY(-8px);
+  transform: translateY(-12px);
   border-color: var(--accent-color);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  /* Enhanced shadow with proper containment */
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 10px 30px rgba(62, 229, 171, 0.1),
+    0 0 0 1px rgba(62, 229, 171, 0.1);
 }
 
 /* Hover Overlay & Card Header (Unchanged) */
@@ -351,23 +443,53 @@
   transform: scale(1.15) translateY(-2px);
 }
 
+/* ======================================================================== */
+/*                           STAGGERED CARD ANIMATIONS                     */
+/* ======================================================================== */
+
+.project-card:nth-child(1) {
+  transition-delay: 0.9s;
+}
+.project-card:nth-child(2) {
+  transition-delay: 1.05s;
+}
+.project-card:nth-child(3) {
+  transition-delay: 1.2s;
+}
+.project-card:nth-child(4) {
+  transition-delay: 1.35s;
+}
+.project-card:nth-child(5) {
+  transition-delay: 1.5s;
+}
+.project-card:nth-child(6) {
+  transition-delay: 1.65s;
+}
+
 /* Responsive (MODIFIED - Better mobile handling) */
 @media (max-width: 768px) {
   .projects-section {
     padding: 4rem 1rem;
-  } /* Reduced horizontal padding on mobile */
+  }
   .projects-header h2 {
     font-size: 2.2rem;
   }
   .projects-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem; /* Slightly reduced gap on mobile */
+    gap: 1.5rem;
+  }
+  /* Reduce animation complexity on mobile */
+  .project-card {
+    transform: translateY(30px) scale(0.95);
+  }
+  .projects-section.is-visible .project-card {
+    transform: translateY(0) scale(1);
   }
 }
 
 /* Additional responsive breakpoint for very large screens */
 @media (min-width: 1600px) {
   .projects-grid {
-    max-width: 1600px; /* Allow slightly more width on very large screens */
+    max-width: 1600px;
   }
 }
