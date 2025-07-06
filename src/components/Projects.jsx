@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../Projects.css';
-
-// Icon imports from lucide-react
+import '../Projects.css'
 import { 
   Layers, 
   Monitor, 
@@ -11,10 +9,7 @@ import {
   Cloud,
   ExternalLink,
   Github,
-  Play,
-  Code,
-  Zap,
-  Globe
+  Zap
 } from 'lucide-react';
 
 const projectsData = [
@@ -92,56 +87,33 @@ const projectsData = [
   }
 ];
 
-const Projects = () => {
+export default function Projects() {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeProject, setActiveProject] = useState(null);
-  const [filter, setFilter] = useState('All');
   const [visibleCards, setVisibleCards] = useState(new Set());
-  const projectsRef = useRef(null);
-
-  const categories = ['All', 'Web Application', 'Desktop Application', 'Website', 'Portfolio', 'Utility Tool', 'Mobile App'];
-
-  const filteredProjects = filter === 'All' 
-    ? projectsData 
-    : projectsData.filter(project => project.category === filter);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (projectsRef.current) {
-      observer.observe(projectsRef.current);
-    }
-
-    return () => observer.disconnect();
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true);
+    }, { threshold: 0.1 });
+    obs.observe(sectionRef.current);
+    return () => obs.disconnect();
   }, []);
 
   useEffect(() => {
-    const cardObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = parseInt(entry.target.dataset.index);
-            setVisibleCards(prev => new Set(prev).add(index));
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
+    const cardObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = parseInt(entry.target.dataset.index, 10);
+          setVisibleCards(prev => new Set(prev).add(idx));
+        }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.project-card').forEach(card => cardObs.observe(card));
+    return () => cardObs.disconnect();
+  }, []);
 
-    const cards = document.querySelectorAll('.project-card');
-    cards.forEach((card) => cardObserver.observe(card));
-
-    return () => cardObserver.disconnect();
-  }, [filteredProjects]);
-
-  const getStatusColor = (status) => {
+  const getStatusColor = status => {
     switch (status) {
       case 'Live': return '#10B981';
       case 'Completed': return '#3B82F6';
@@ -151,14 +123,12 @@ const Projects = () => {
   };
 
   return (
-    <section className="projects-section" id="projects" ref={projectsRef}>
-      {/* Background Elements */}
+    <section className="projects-section" ref={sectionRef} id="projects">
       <div className="bg-grid">
         {[...Array(20)].map((_, i) => (
-          <div key={i} className="grid-line" />
+          <div key={i} className="grid-line" style={{ '--i': i }} />
         ))}
       </div>
-
       <div className="floating-elements">
         {[...Array(6)].map((_, i) => (
           <div
@@ -175,51 +145,30 @@ const Projects = () => {
       </div>
 
       <div className="projects-container">
-        {/* Projects Header */}
-        <div className={`projects-header ${isVisible ? 'visible' : ''}`}>
+        <header className={`projects-header ${isVisible ? 'visible' : ''}`}>
           <h2>Featured Projects</h2>
-          <p>
-            Discover my latest work and creative solutions that showcase innovation and technical excellence
-          </p>
-        </div>
+          <p>Discover my latest work and creative solutions that showcase innovation and technical excellence.</p>
+        </header>
 
-        {/* Filter Buttons */}
-        <div className={`filter-container ${isVisible ? 'visible' : ''}`}>
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={`filter-btn ${filter === category ? 'active' : ''}`}
-              onClick={() => setFilter(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* Projects Grid */}
         <div className={`projects-grid ${isVisible ? 'visible' : ''}`}>
-          {filteredProjects.map((project, index) => {
-            const IconComponent = project.icon;
+          {projectsData.map((project, idx) => {
+            const Icon = project.icon;
             return (
               <div
                 key={project.id}
-                className={`project-card ${visibleCards.has(index) ? 'visible' : ''}`}
-                data-index={index}
-                style={{
-                  animationDelay: `${index * 0.1}s`,
-                  '--accent-color': project.accentColor
-                }}
-                onMouseEnter={() => setActiveProject(project.id)}
-                onMouseLeave={() => setActiveProject(null)}
+                className={`project-card ${visibleCards.has(idx) ? 'visible' : ''}`}
+                data-index={idx}
+                style={{ '--accent-color': project.accentColor }}
               >
                 <div className="project-card-inner">
-                  {/* Project Header */}
+                  <div className="hover-overlay" style={{ background: project.gradient }} />
+
                   <div className="project-header">
                     <div className="project-icon" style={{ background: project.gradient }}>
-                      <IconComponent size={24} />
+                      <Icon size={24} />
                     </div>
                     <div className="project-status">
-                      <span 
+                      <span
                         className="status-dot"
                         style={{ backgroundColor: getStatusColor(project.status) }}
                       />
@@ -227,79 +176,41 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Project Content */}
                   <div className="project-content">
                     <h3>{project.title}</h3>
                     <p className="project-description">{project.description}</p>
-                    
                     <div className="project-category">
                       <span>{project.category}</span>
                     </div>
-
-                    {/* Technologies */}
                     <div className="tech-stack">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span key={techIndex} className="tech-tag">
-                          {tech}
-                        </span>
+                      {project.technologies.map((t, i) => (
+                        <span key={i} className="tech-tag">{t}</span>
                       ))}
                     </div>
-
-                    {/* Features */}
                     <div className="project-features">
                       <h4>Key Features:</h4>
                       <ul>
-                        {project.features.map((feature, featureIndex) => (
-                          <li key={featureIndex}>
-                            <Zap size={12} />
-                            {feature}
-                          </li>
+                        {project.features.map((f, i) => (
+                          <li key={i}><Zap size={12}/> {f}</li>
                         ))}
                       </ul>
                     </div>
                   </div>
 
-                  {/* Project Actions */}
                   <div className="project-actions">
-                    <button className="action-btn primary">
-                      <Play size={16} />
-                      Live Demo
+                    <button className="action-btn link">
+                      <ExternalLink size={16}/> View Project
                     </button>
-                    <button className="action-btn secondary">
-                      <Github size={16} />
-                      Code
-                    </button>
-                    <button className="action-btn tertiary">
-                      <ExternalLink size={16} />
-                      Details
+                    <button className="action-btn github">
+                      <Github size={16}/> GitHub
                     </button>
                   </div>
-
-                  {/* Hover Gradient Overlay */}
-                  <div 
-                    className="hover-overlay"
-                    style={{ background: project.gradient }}
-                  />
                 </div>
               </div>
             );
           })}
         </div>
-
-        {/* Call to Action */}
-        <div className={`projects-cta ${isVisible ? 'visible' : ''}`}>
-          <div className="cta-content">
-            <h3>Interested in collaborating?</h3>
-            <p>Let's build something amazing together</p>
-            <button className="cta-btn">
-              <Globe size={20} />
-              Get In Touch
-            </button>
-          </div>
-        </div>
       </div>
     </section>
   );
-};
-
-export default Projects;
+}
