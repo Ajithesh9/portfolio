@@ -1,54 +1,55 @@
+// src/components/Navbar.jsx
+
 import React, { useState, useEffect } from 'react';
 import '../Navbar.css';
-// Import the new icons we need for the mobile menu
+
+// Importing icons from their correct libraries
+import { TerminalSquare } from 'lucide-react';
 import { FiLock, FiMenu, FiX } from 'react-icons/fi';
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  // NEW: State to manage the open/closed state of the mobile menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // --- NEW, SIMPLE, AND RELIABLE LOGIC ---
+  // We track if the user is at the very top of the page.
+  const [isAtTop, setIsAtTop] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      // If user has scrolled more than 100px, they are no longer at the top.
+      if (window.scrollY > 100) {
+        setIsAtTop(false);
+      } else {
+        setIsAtTop(true);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
-  // NEW: Toggles the menu state
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-  
-  // NEW: Closes the menu (used when a link is clicked)
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  }
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []); // This runs only once.
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    // The 'is-visible' class is now simply controlled by the 'isAtTop' state.
+    <nav className={`navbar ${isAtTop ? 'is-visible' : ''}`}>
       <div className="navbar-container">
-        <a href="/" className="logo">Ajithesh</a>
-        {/* No structural changes here, just added a class conditionally */}
+        <a href="/" className="logo">
+          <TerminalSquare size={28} className="logo-icon" />
+          <span>Ajithesh</span>
+        </a>
+        
         <div className="navbar-right">
-          {/* Add 'open' class when menu is toggled on mobile */}
           <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-            {/* Added onClick to close the menu after navigation */}
-            <li><a href="/" onClick={closeMenu}>Home</a></li>
-            <li><a href="/skills" onClick={closeMenu}>Skills</a></li>
-            <li><a href="/projects" onClick={closeMenu}>Projects</a></li>
-            <li><a href="/experience" onClick={closeMenu}>Experience</a></li>
-            <li><a href="/contact" onClick={closeMenu}>Contact</a></li>
+            <li><a href="#" onClick={closeMenu}>Home</a></li>
+            <li><a href="#skills" onClick={closeMenu}>Skills</a></li>
+            <li><a href="#projects" onClick={closeMenu}>Projects</a></li>
+            <li><a href="#experience" onClick={closeMenu}>Experience</a></li>
+            <li><a href="#contact" onClick={closeMenu}>Contact</a></li>
           </ul>
-
           <button className="secure-lock" aria-label="Secure Connection">
             <FiLock size={20} />
           </button>
-
-          {/* NEW: Hamburger menu button, will be hidden on desktop by CSS */}
           <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
             {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
           </button>

@@ -1,255 +1,90 @@
-/* --- Body Styles --- */
-body {
-  background-color: #111827;
-  background-image: radial-gradient(at 80% 20%, hsla(215, 70%, 50%, 0.25) 0px, transparent 50%),
-                    radial-gradient(at 20% 90%, hsla(330, 60%, 45%, 0.2) 0px, transparent 50%);
-  color: white;
-  font-family: sans-serif;
-  /* Add some height to the body to make scrolling possible for testing */
-  min-height: 200vh;
-}
+/* ======================================================================== */
+/*              Navbar.css (Final, Simplified, and Correct)                 */
+/* ======================================================================== */
 
-/* --- IMPORTANT: Remove the padding-top from your main content area --- */
-/* If you had a rule like this, please remove it now. */
-/* 
-.main-content {
-  padding-top: 80px; 
-} 
-*/
-
-/* --- Navigation Bar --- */
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 2rem;
+  left: 50%;
   width: 100%;
+  max-width: 1200px;
   z-index: 100;
-  background: transparent; /* Transparent by default */
-  /* Add a smooth transition for the background change */
-  transition: background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
-  border-bottom: 1px solid transparent; /* Transparent border by default */
+  
+  background: rgba(30, 32, 47, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+
+  /* --- PROFESSIONAL HIDE/SHOW ANIMATION --- */
+  /* By default, the navbar is hidden (off-screen up) */
+  opacity: 0;
+  transform: translate(-50%, -150%);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none; /* Can't be clicked when hidden */
 }
 
-/* --- STYLES FOR WHEN THE NAVBAR IS SCROLLED --- */
-.navbar.scrolled {
-  /* Apply the glassmorphism effect only when scrolled */
-  background: rgba(23, 23, 23, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+/* This class is added by React when the navbar should be visible */
+.navbar.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto; /* Clickable when visible */
 }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 1.2rem 2rem;
+  padding: 0.8rem 2rem;
 }
 
+/* --- Logo & Links with Correct Color --- */
 .logo {
-  font-size: 2.2rem; /* Increased size to make it a focal point */
-  font-weight: 800;  /* Bolder font for a stronger effect */
-  text-decoration: none;
-  letter-spacing: -1px; /* Slightly tighter letters for a modern look */
-
-  /* --- The Gradient Effect --- */
-  /* 1. Define the gradient */
-  background: linear-gradient(to right, #d8b4fe, #a78bfa, #818cf8, #60a5fa);
-  
-  /* 2. Set the background size to be larger than the element */
-  background-size: 200% auto;
-
-  /* 3. Clip the background to the shape of the text */
-  background-clip: text;
-  -webkit-background-clip: text; /* For Safari/Chrome support */
-
-  /* 4. Make the text's actual color transparent to show the background */
-  /* Using -webkit-text-fill-color is more robust for this */
-  -webkit-text-fill-color: transparent;
-
-  /* 5. Apply the animation that moves the background */
-  animation: text-gradient-animation 4s linear infinite;
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 1.5rem; font-weight: 600; color: #e5e7eb;
+  text-decoration: none; transition: color 0.3s ease;
 }
+.logo:hover { color: #FFFFFF; }
+.logo-icon { color: #3CE5AB; transition: transform 0.4s ease; }
+.logo:hover .logo-icon { transform: rotate(90deg); }
 
-/* --- Animation for the Gradient Effect --- */
-/* --- The Animation for logo  --- */
-@keyframes text-gradient-animation {
-  from {
-    background-position: 0% center;
-  }
-  to {
-    background-position: -200% center;
-  }
-}
-
-
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 2.5rem;
-  margin: 0;
-  padding: 0;
-}
-
+.navbar-right { display: flex; align-items: center; gap: 2.5rem; }
+.nav-links { display: flex; list-style: none; gap: 2.5rem; margin: 0; padding: 0; }
 .nav-links a {
-  color: #A1A1AA;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  color: #A1A1AA; text-decoration: none; font-size: 1rem;
+  font-weight: 500; transition: color 0.3s ease; position: relative;
+  padding-bottom: 0.5rem;
 }
-
-.nav-links a:hover {
-  color: #FFFFFF;
+.nav-links a:hover { color: #FFFFFF; }
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
+  background-color: #3CE5AB;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
 }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: bottom left; }
 
-.secure-lock {
-  position: relative;
-  background: transparent;
-  border: none;
-  color: #A1A1AA;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  transition: color 0.3s ease;
-}
+/* --- Other Icons --- */
+.secure-lock { position: relative; background: transparent; border: none; color: #A1A1AA; cursor: pointer; padding: 0; display: flex; align-items: center; transition: color 0.3s ease; }
+.secure-lock:hover { color: #3CE5AB; }
+.menu-toggle { display: none; }
 
-.secure-lock:hover {
-  color: #34D399;
-}
-
-.secure-lock::after {
-  content: 'Secure Connection';
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #27272A;
-  color: #FFFFFF;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 10;
-}
-
-.secure-lock:hover::after {
-  opacity: 1;
-  visibility: visible;
-}
-.menu-toggle {
-  display: none;
-}
-
-/* ======================================================================== */
-/*                  MOBILE OPTIMIZATION (768px and below)                   */
-/* ======================================================================== */
-/* Add these styles to the END of your existing Navbar.css file */
-
+/* --- Mobile Styles --- */
 @media (max-width: 768px) {
-
-  /* --- Navbar Mobile Adjustments --- */
-
-  .navbar-container {
-    /* Reduce padding on mobile to save space */
-    padding: 1rem 1.5rem;
-  }
-  
-  .navbar-right {
-    /* The hamburger icon will be the only visible item, so no gap needed */
-    gap: 0;
-  }
-
-  /* Hide the regular nav links and lock icon on mobile */
-  .nav-links {
-    display: none;
-  }
-  .secure-lock {
-    display: none;
-  }
-
-  /* Show the hamburger menu icon on mobile */
-  .menu-toggle {
-    display: flex; /* Overrides the default 'none' from desktop */
-    align-items: center;
-    background: transparent;
-    border: none;
-    color: #A1A1AA;
-    cursor: pointer;
-    z-index: 110; /* Ensure it's on top */
-  }
-
-  /* --- Mobile Dropdown Menu Styling --- */
-  
-  /* These styles apply to the nav links ONLY when the menu is open */
+  .navbar { top: 1rem; left: 1rem; right: 1rem; width: auto; }
+  .navbar, .navbar.is-visible { transform: translate(0, 0); } /* Simplified transform for mobile */
+  .navbar-container { padding: 0.8rem 1.5rem; }
+  .navbar-right { gap: 0; }
+  .nav-links, .secure-lock { display: none; }
+  .menu-toggle { display: flex; align-items: center; background: transparent; border: none; color: #A1A1AA; cursor: pointer; z-index: 110; }
   .nav-links.open {
-    display: flex; /* Make it visible */
-    position: absolute;
-    top: 100%; /* Position right below the navbar */
-    left: 0;
-    width: 100%;
-    
-    /* Layout */
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem 0 2rem 0; /* Add padding for spacing */
-    
-    /* Glassmorphism background for the dropdown */
-    background: rgba(23, 23, 23, 0.9);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    display: flex; position: absolute; top: calc(100% + 1rem);
+    left: 0; right: 0; width: 100%; flex-direction: column;
+    align-items: center; padding: 1rem 0 2rem 0;
+    background: rgba(23, 23, 23, 0.95); backdrop-filter: blur(10px);
+    border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);
   }
-
-  .nav-links.open a {
-    font-size: 1.25rem; /* Bigger text for easier tapping */
-    padding: 0.75rem 0; /* More space between links */
-  }
-
-
-  /* --- Hero Section Mobile Adjustments --- */
-  
-  .hero-container {
-    flex-direction: column; /* Stack content vertically */
-    text-align: center;   /* Center the text */
-    padding-top: 100px; /* Push content down below the fixed navbar */
-  }
-
-  .hero-content {
-    /* Ensure content takes full width and align text */
-    width: 100%;
-    align-items: center;
-    margin-bottom: 2rem; /* Add space between text and image */
-  }
-
-  .hero-content h1 {
-    font-size: 2.5rem; /* Adjust heading size for mobile */
-  }
-
-  .hero-content p {
-    font-size: 1rem; /* Adjust paragraph size for mobile */
-    max-width: 90%; /* Prevent text from touching screen edges */
-    margin: 1rem auto; /* Center the paragraph block */
-  }
-
-  .hero-image {
-    width: 70%; /* Make image smaller */
-    max-width: 280px; /* Prevent image from being too large */
-    margin: 0 auto; /* Center the image */
-  }
+  .nav-links.open a { font-size: 1.25rem; padding: 0.75rem 0; }
+  .nav-links.open a::after { display: none; }
 }

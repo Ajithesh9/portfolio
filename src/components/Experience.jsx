@@ -1,72 +1,139 @@
-import React from "react";
+// src/components/Experience.jsx
+
+import React, { useState, useEffect, useRef } from 'react';
 import '../ExperienceSection.css';
+import CountUp from 'react-countup';
+import { 
+  Flame, 
+  GitCommit, 
+  Rocket, 
+  Trophy, 
+  Briefcase, 
+  BrainCircuit, 
+  GitBranch, 
+  Target,
+  Code
+} from 'lucide-react';
 
-const ExperienceSection = () => {
-  const experiences = [
-    {
-      id: 1,
-      title: "Freelance & OSS",
-      company: "VishwaGauravIn",
-      tenure: "10/2021 - Present",
-      image: "https://via.placeholder.com/400x250/00008B/FFFFFF?text=Freelance+&+OSS",
-      description: [
-        "Launched 45+ products, including SaaS, extensions, web services, and libraries addressing real-world challenges.",
-        "Global impact: Used by over 1,000,000 users across 100+ countries worldwide with a 99% positive feedback rate.",
-        "Executed cutting-edge solutions, over 7000 contributions, and 1300+ stars in open-source."
-      ]
-    },
-    {
-      id: 2,
-      title: "Software Developer",
-      company: "Zivy Pvt. Ltd.",
-      tenure: "08/2023 - 01/2024",
-      image: " https://via.placeholder.com/400x250/2F4F4F/FFFFFF?text=Software+Developer",
-      description: [
-        "Led the end-to-end development and deployment of the front-end for an enterprise SaaS platform.",
-        "Architected a modular and scalable front-end, enhanced UI/UX, and optimized performance by 50%.",
-        "Developed a platform that empowers managers with enhanced workflow, improving productivity by 75%."
-      ]
-    },
-    {
-      id: 3,
-      title: "Web Developer",
-      company: "Integrity LLC",
-      tenure: "12/2022 - 03/2023",
-      image: " https://via.placeholder.com/400x250/000000/FFFFFF?text=Web+Developer",
-      description: [
-        "Implemented responsive web design techniques and upgraded architecture with the latest technology.",
-        "Achieved a significant 25% reduction in bounce rates across various devices and screen sizes.",
-        "Collaborated with cross-functional teams to optimize website components, resulting in a 90% improvement in responsiveness and a 23% boost in user engagement metrics."
-      ]
-    }
-  ];
+const useInView = (options) => {
+  const ref = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        observer.unobserve(entry.target);
+      }
+    }, options);
+    if (ref.current) observer.observe(ref.current);
+    return () => { if (ref.current) observer.unobserve(ref.current); };
+  }, [ref, options]);
+  return [ref, isInView];
+};
 
+const statsData = [
+  { icon: Flame, value: "1", label: "Years of Experience", color: "#FF6B35" },
+  { icon: GitBranch, value: "21", label: "GitHub Repositories", color: "#00D4FF" },
+  { icon: GitCommit, value: "360+", label: "GitHub Contributions", color: "#f472b6" },
+  { icon: Rocket, value: "3", label: "Launched Projects", color: "#9D4EDD" },
+  { icon: Trophy, value: "4", label: "Participated Hackathons", color: "#FFD60A" },
+  { icon: Target, value: "7", label: "Total Certifications", color: "#3CE5AB" }
+];
+
+const experienceData = [
+  {
+    icon: <Code />,
+    role: "Frontend Web Developer Intern",
+    company: "HydroTribe",
+    tenure: "Internship",
+    color: "#3CE5AB",
+    description: "Gained hands-on experience with CSS & HTML5, hosted sites using GitHub Pages, and collaborated with the UI/UX team to meet company design and functionality requirements."
+  },
+  {
+    icon: <BrainCircuit />,
+    role: "Machine Learning Intern",
+    company: "SkillDzire",
+    tenure: "Internship",
+    color: "#60a5fa",
+    description: "Learned Python and key libraries, applying techniques like linear regression and YOLO for practical projects. Built a strong foundation in ML to solve real-world problems."
+  }
+];
+
+const StatsGrid = ({ isVisible }) => {
   return (
-    <section className="experience-section">
-      <h1>Experience</h1>
-      <div className="cards-container">
-        {experiences.map((exp) => (
-          <div key={exp.id} className="experience-card">
-            <div className="card-image">
-              <img src={exp.image} alt={exp.title} />
-              <div className="overlay">
-                <ul>
-                  {exp.description.map((desc, index) => (
-                    <li key={index}>{desc}</li>
-                  ))}
-                </ul>
+    <div className={`stats-container ${isVisible ? 'visible' : ''}`}>
+      <div className="stats-grid">
+        {statsData.map((stat, index) => {
+          const IconComponent = stat.icon;
+          return (
+            <div
+              key={index}
+              className="stat-card"
+              style={{ animationDelay: `${index * 0.1}s`, '--stat-color': stat.color }}
+            >
+              <div className="stat-icon">
+                <IconComponent size={28} style={{ color: stat.color }} />
+              </div>
+              <div className="stat-content">
+                <div className="stat-value"><CountUp end={parseInt(stat.value)} duration={2.5} suffix={stat.value.includes('+') ? '+' : ''} /></div>
+                <div className="stat-label">{stat.label}</div>
               </div>
             </div>
-            <div className="card-content">
-              <h3>{exp.title}</h3>
-              <p className="company">{exp.company}</p>
-              <p className="tenure">{exp.tenure}</p>
-            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const Experience = () => {
+  const [sectionRef, isVisible] = useInView({ threshold: 0.1, triggerOnce: true });
+  
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const handleMouseMove = (e) => {
+      const { left, top } = section.getBoundingClientRect();
+      section.style.setProperty('--mouse-x', `${e.clientX - left}px`);
+      section.style.setProperty('--mouse-y', `${e.clientY - top}px`);
+    };
+    section.addEventListener('mousemove', handleMouseMove);
+    return () => section.removeEventListener('mousemove', handleMouseMove);
+  }, [sectionRef]);
+
+  return (
+    <section 
+      ref={sectionRef} 
+      className={`experience-section ${isVisible ? 'is-visible' : ''}`} 
+      id="experience"
+    >
+      <div className="animated-top-border" />
+      <div className="experience-container">
+        <div className="timeline-header">
+          <h2>Career Journey</h2>
+        </div>
+        <StatsGrid isVisible={isVisible} />
+        <div className="timeline-container">
+          <div className="timeline">
+            {experienceData.map((exp, index) => (
+              <div key={index} className="timeline-item" style={{'--animation-delay': `${0.4 + index * 0.2}s`, '--hover-color': exp.color}}>
+                <div className="timeline-icon">{exp.icon}</div>
+                <div className="timeline-content">
+                  <div className="content-header">
+                    <h3>{exp.role}</h3>
+                    <span className="company-tenure" style={{ backgroundColor: exp.color + '1a', color: exp.color }}>
+                      {exp.company} • {exp.tenure}
+                    </span>
+                  </div>
+                  <p>{exp.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </section>
   );
 };
 
-export default ExperienceSection;
+export default Experience;

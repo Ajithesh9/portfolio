@@ -22,7 +22,7 @@ const Hero = () => {
         <h1 className="hero-title">
           Hey, I'm Ajithesh✨
           <br />
-          <span className="subtitle">A Web Developer</span>
+          <span className="subtitle">A Software Developer</span>
         </h1>
         <p className="hero-description">
           A fullstack developer with solid foundations in design,
