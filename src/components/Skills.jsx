@@ -11,42 +11,24 @@ import {
   Camera
 } from 'lucide-react';
 
-// Technology logos (using ?url so Vite emits them as assets)
-import htmlLogo from '../assets/skills/html5.svg?url';
-import cssLogo from '../assets/skills/css3.svg?url';
-import jsLogo from '../assets/skills/javascript.svg?url';
-import reactLogo from '../assets/skills/react.svg?url';
-import nodeLogo from '../assets/skills/node.js.svg?url';
-import tailwindLogo from '../assets/skills/tailwind_css.svg?url';
-import npmLogo from '../assets/skills/npm.svg?url';
-import figmaLogo from '../assets/skills/figma.svg?url';
-import postmanLogo from '../assets/skills/postman.svg?url';
-import mongoLogo from '../assets/skills/mongodb.svg?url';
-import gcpLogo from '../assets/skills/google_cloud.svg?url';
-import gitLogo from '../assets/skills/git.svg?url';
-import githubLogo from '../assets/skills/github.svg?url';
-import pythonLogo from '../assets/skills/python.svg?url';
-import javaLogo from '../assets/skills/java.svg?url';
-import viteLogo from '../assets/skills/vite.js.svg?url';
-
-// Skills data array
+// **No SVG imports**—we’ll use <img src="/assets/skills/…"> instead
 const skillsData = [
-  { imgSrc: htmlLogo, name: 'HTML5', borderColor: '#E34F26' },
-  { imgSrc: cssLogo, name: 'CSS3', borderColor: '#1572B6' },
-  { imgSrc: jsLogo, name: 'JavaScript', borderColor: '#F7DF1E' },
-  { imgSrc: reactLogo, name: 'React', borderColor: '#61DAFB' },
-  { imgSrc: nodeLogo, name: 'Node.js', borderColor: '#339933' },
-  { imgSrc: tailwindLogo, name: 'Tailwind', borderColor: '#06B6D4' },
-  { imgSrc: npmLogo, name: 'NPM', borderColor: '#CB3837' },
-  { imgSrc: figmaLogo, name: 'Figma', borderColor: '#F24E1E' },
-  { imgSrc: postmanLogo, name: 'Postman', borderColor: '#FF6C37' },
-  { imgSrc: mongoLogo, name: 'MongoDB', borderColor: '#47A248' },
-  { imgSrc: gcpLogo, name: 'GCP', borderColor: '#4285F4' },
-  { imgSrc: gitLogo, name: 'Git', borderColor: '#F05032' },
-  { imgSrc: githubLogo, name: 'GitHub', borderColor: '#e6e6e6' },
-  { imgSrc: pythonLogo, name: 'Python', borderColor: '#3776AB' },
-  { imgSrc: javaLogo, name: 'Java', borderColor: '#ED8B00' },
-  { imgSrc: viteLogo, name: 'Vite.js', borderColor: '#646CFF' },
+  { file: 'html5',    name: 'HTML5',      borderColor: '#E34F26' },
+  { file: 'css3',     name: 'CSS3',       borderColor: '#1572B6' },
+  { file: 'javascript', name: 'JavaScript', borderColor: '#F7DF1E' },
+  { file: 'react',    name: 'React',      borderColor: '#61DAFB' },
+  { file: 'node.js',  name: 'Node.js',    borderColor: '#339933' },
+  { file: 'tailwind_css', name: 'Tailwind', borderColor: '#06B6D4' },
+  { file: 'npm',      name: 'NPM',        borderColor: '#CB3837' },
+  { file: 'figma',    name: 'Figma',      borderColor: '#F24E1E' },
+  { file: 'postman',  name: 'Postman',    borderColor: '#FF6C37' },
+  { file: 'mongodb',  name: 'MongoDB',    borderColor: '#47A248' },
+  { file: 'google_cloud', name: 'GCP',    borderColor: '#4285F4' },
+  { file: 'git',      name: 'Git',        borderColor: '#F05032' },
+  { file: 'github',   name: 'GitHub',     borderColor: '#e6e6e6' },
+  { file: 'python',   name: 'Python',     borderColor: '#3776AB' },
+  { file: 'java',     name: 'Java',       borderColor: '#ED8B00' },
+  { file: 'vite.js',  name: 'Vite.js',    borderColor: '#646CFF' },
 ];
 
 const primarySkillsData = [
@@ -184,15 +166,18 @@ const Skills = () => {
           <div className="skills-grid">
             {skillsData.map((skill, idx) => (
               <div
-                className={`skill-card ${visibleCards.has(idx) ? 'visible' : ''}`}
                 key={idx}
+                className={`skill-card ${visibleCards.has(idx) ? 'visible' : ''}`}
                 data-index={idx}
                 style={{
                   animationDelay: `${idx * 0.05}s`,
                   '--border-color': skill.borderColor
                 }}
               >
-                <img src={skill.imgSrc} alt={`${skill.name} logo`} />
+                <img
+                  src={`/assets/skills/${skill.file}.svg`}
+                  alt={`${skill.name} logo`}
+                />
                 <h5>{skill.name}</h5>
               </div>
             ))}
