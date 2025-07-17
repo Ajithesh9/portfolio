@@ -1,0 +1,11 @@
+# netlify.toml
+
+[build]
+  # This is the command to build your site
+  command = "npm run build"
+  # This is the directory where your built files are located
+  publish = "dist"
+
+[build.environment]
+  # Set the Node.js version to ensure compatibility
+  NODE_VERSION = "20"
