@@ -2,17 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../Skills.css';
 
 // Icon imports from lucide-react
-import { 
-  Smartphone, 
-  Cloud, 
-  Settings, 
-  Code, 
-  Palette, 
-  Camera 
+import {
+  Smartphone,
+  Cloud,
+  Settings,
+  Code,
+  Palette,
+  Camera
 } from 'lucide-react';
 
-// --- ACTION: Ensure your SVG files are in src/assets/skills/ and are all lowercase ---
-// Technology logos imports (updated to lowercase to prevent case-sensitivity issues)
+// --- CORRECTED: Technology logos imports ---
+// Ensure your actual filenames in /src/assets/skills/ are all lowercase.
 import htmlLogo from '../assets/skills/html5.svg';
 import cssLogo from '../assets/skills/css3.svg';
 import jsLogo from '../assets/skills/javascript.svg';
@@ -30,7 +30,8 @@ import pythonLogo from '../assets/skills/python.svg';
 import javaLogo from '../assets/skills/java.svg';
 import viteLogo from '../assets/skills/vite.js.svg';
 
-// Skills data array (no changes needed here)
+
+// Skills data array
 const skillsData = [
   { imgSrc: htmlLogo, name: 'HTML5', borderColor: '#E34F26' },
   { imgSrc: cssLogo, name: 'CSS3', borderColor: '#1572B6' },
@@ -173,7 +174,7 @@ const Skills = () => {
                 <div
                   key={index}
                   className="primary-skill-card"
-                  style={{ 
+                  style={{
                     animationDelay: `${index * 0.1}s`,
                     '--border-color': skill.borderColor
                   }}
@@ -199,11 +200,11 @@ const Skills = () => {
           </div>
           <div className="skills-grid">
             {skillsData.map((skill, index) => (
-              <div 
+              <div
                 className={`skill-card ${visibleCards.has(index) ? 'visible' : ''}`}
                 key={index}
                 data-index={index}
-                style={{ 
+                style={{
                   animationDelay: `${index * 0.05}s`,
                   '--border-color': skill.borderColor
                 }}
