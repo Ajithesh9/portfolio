@@ -11,25 +11,26 @@ import {
   Camera 
 } from 'lucide-react';
 
-// Technology logos imports
-import htmlLogo from '../assets/skills/HTML5.svg';
-import cssLogo from '../assets/skills/CSS3.svg';
-import jsLogo from '../assets/skills/JavaScript.svg';
-import reactLogo from '../assets/skills/React.svg';
-import nodeLogo from '../assets/skills/Node.js.svg';
-import tailwindLogo from '../assets/skills/Tailwind_CSS.svg';
-import NPM from '../assets/skills/NPM.svg';
-import figmaLogo from '../assets/skills/Figma.svg';
-import postmanLogo from '../assets/skills/Postman.svg';
-import MongoDB from '../assets/skills/MongoDB.svg';
-import Google_Cloud from '../assets/skills/Google_Cloud.svg';
-import gitLogo from '../assets/skills/Git.svg';
-import githubLogo from '../assets/skills/GitHub.svg';
-import pythonLogo from '../assets/skills/Python.svg';
-import javaLogo from '../assets/skills/Java.svg';
-import viteLogo from '../assets/skills/VITE.js.svg';
+// --- ACTION: Ensure your SVG files are in src/assets/skills/ and are all lowercase ---
+// Technology logos imports (updated to lowercase to prevent case-sensitivity issues)
+import htmlLogo from '../assets/skills/html5.svg';
+import cssLogo from '../assets/skills/css3.svg';
+import jsLogo from '../assets/skills/javascript.svg';
+import reactLogo from '../assets/skills/react.svg';
+import nodeLogo from '../assets/skills/node.js.svg';
+import tailwindLogo from '../assets/skills/tailwind_css.svg';
+import NPM from '../assets/skills/npm.svg';
+import figmaLogo from '../assets/skills/figma.svg';
+import postmanLogo from '../assets/skills/postman.svg';
+import MongoDB from '../assets/skills/mongodb.svg';
+import Google_Cloud from '../assets/skills/google_cloud.svg';
+import gitLogo from '../assets/skills/git.svg';
+import githubLogo from '../assets/skills/github.svg';
+import pythonLogo from '../assets/skills/python.svg';
+import javaLogo from '../assets/skills/java.svg';
+import viteLogo from '../assets/skills/vite.js.svg';
 
-// Skills data array
+// Skills data array (no changes needed here)
 const skillsData = [
   { imgSrc: htmlLogo, name: 'HTML5', borderColor: '#E34F26' },
   { imgSrc: cssLogo, name: 'CSS3', borderColor: '#1572B6' },
