@@ -21,7 +21,7 @@ const Hero = () => {
       <main className="hero-content">
         {/* Now referencing the static asset in public/assets */}
         <img
-          src="/assets/photo.jpg"
+          src="\assets\skills\photo.jpg"
           alt="Ajithesh"
           className="profile-pic"
         />
