@@ -11,24 +11,24 @@ import {
   Camera
 } from 'lucide-react';
 
-// --- CORRECTED: Technology logos imports ---
-// Ensure your actual filenames in /src/assets/skills/ are all lowercase.
-import htmlLogo from '../assets/skills/html5.svg';
-import cssLogo from '../assets/skills/css3.svg';
-import jsLogo from '../assets/skills/javascript.svg';
-import reactLogo from '../assets/skills/react.svg';
-import nodeLogo from '../assets/skills/node.js.svg';
-import tailwindLogo from '../assets/skills/tailwind_css.svg';
-import NPM from '../assets/skills/npm.svg';
-import figmaLogo from '../assets/skills/figma.svg';
-import postmanLogo from '../assets/skills/postman.svg';
-import MongoDB from '../assets/skills/mongodb.svg';
-import Google_Cloud from '../assets/skills/google_cloud.svg';
-import gitLogo from '../assets/skills/git.svg';
-import githubLogo from '../assets/skills/github.svg';
-import pythonLogo from '../assets/skills/python.svg';
-import javaLogo from '../assets/skills/java.svg';
-import viteLogo from '../assets/skills/vite.js.svg';
+// --- ACTION: Corrected Technology logos imports with absolute paths ---
+// This ensures the build process can always find your assets.
+import htmlLogo from '/src/assets/skills/html5.svg';
+import cssLogo from '/src/assets/skills/css3.svg';
+import jsLogo from '/src/assets/skills/javascript.svg';
+import reactLogo from '/src/assets/skills/react.svg';
+import nodeLogo from '/src/assets/skills/node.js.svg';
+import tailwindLogo from '/src/assets/skills/tailwind_css.svg';
+import NPM from '/src/assets/skills/npm.svg';
+import figmaLogo from '/src/assets/skills/figma.svg';
+import postmanLogo from '/src/assets/skills/postman.svg';
+import MongoDB from '/src/assets/skills/mongodb.svg';
+import Google_Cloud from '/src/assets/skills/google_cloud.svg';
+import gitLogo from '/src/assets/skills/git.svg';
+import githubLogo from '/src/assets/skills/github.svg';
+import pythonLogo from '/src/assets/skills/python.svg';
+import javaLogo from '/src/assets/skills/java.svg';
+import viteLogo from '/src/assets/skills/vite.js.svg';
 
 
 // Skills data array
