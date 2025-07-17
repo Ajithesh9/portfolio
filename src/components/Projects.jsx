@@ -116,6 +116,20 @@ const Projects = () => {
   const [sectionRef, isVisible] = useInView({ threshold: 0.1, triggerOnce: true });
   const [activeFilter, setActiveFilter] = useState('All');
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const handleMouseMove = (e) => {
+      const { left, top } = section.getBoundingClientRect();
+      section.style.setProperty('--mouse-x', `${e.clientX - left}px`);
+      section.style.setProperty('--mouse-y', `${e.clientY - top}px`);
+    };
+
+    section.addEventListener('mousemove', handleMouseMove);
+    return () => section.removeEventListener('mousemove', handleMouseMove);
+  }, [sectionRef]);
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'Live': return '#10B981';
@@ -132,10 +146,6 @@ const Projects = () => {
   return (
     <section className={`projects-section ${isVisible ? 'is-visible' : ''}`} ref={sectionRef} id="projects">
       <div className="animated-border" />
-      <div className="bg-particles">
-        {[...Array(50)].map((_, i) => <div key={i} className="particle" style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 10}s`, animationDuration: `${5 + Math.random() * 10}s` }}/>)}
-      </div>
-
       <div className="projects-container">
         <header className="projects-header">
           <h2>Featured Projects</h2>
