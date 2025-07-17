@@ -1,15 +1,15 @@
 /* ======================================================================== */
-/*              Contact.css (Enhanced with Better Patterns & Marquee)      */
+/*              Contact.css (Fixed Layout & Speed Control)                 */
 /* ======================================================================== */
 
 .contact-final-section {
-  padding: 8rem 2rem 4rem;
+  padding: 5rem 4rem 2rem;
   background: linear-gradient(135deg, #0A0C14 0%, #111827 100%);
   position: relative;
   overflow: hidden;
   opacity: 0;
   transition: opacity 1s ease-out;
-  min-height: 100vh;
+  min-height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,7 +54,8 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
-  animation: marquee-scroll 60s linear infinite;
+  /* SPEED CONTROL: Change this value to control speed */
+  animation: marquee-scroll 55s linear infinite; /* Faster than original 60s */
   gap: 3rem;
   will-change: transform;
 }
@@ -75,10 +76,6 @@
   position: relative;
 }
 
-.marquee-item:hover {
-  color: #3CE5AB;
-}
-
 .separator-final {
   color: #3CE5AB;
   font-size: 1.2rem;
@@ -86,15 +83,14 @@
   opacity: 0.7;
 }
 
-/* --- Main Content Container --- */
+/* --- FIXED: Main Content Container --- */
 .contact-final-container {
-  max-width: 700px;
+  max-width: 1000px;
   width: 100%;
-  text-align: center;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 4rem; /* Increased gap for better spacing */
   position: relative;
   z-index: 1;
   opacity: 0;
@@ -107,9 +103,15 @@
   transform: translateY(0);
 }
 
+/* --- FIXED: Left Side Content --- */
+.contact-left-content {
+  flex: 1;
+  text-align: left;
+}
+
 /* --- Enhanced Heading --- */
 .contact-final-heading {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 700;
   line-height: 1.1;
   color: #FFFFFF;
@@ -122,11 +124,10 @@
   content: '';
   position: absolute;
   bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   width: 100px;
   height: 3px;
-  background: linear-gradient(90deg, transparent, #3CE5AB, transparent);
+  background: linear-gradient(90deg, #3CE5AB, transparent);
   border-radius: 2px;
   opacity: 0;
   animation: underlineGlow 2s ease-in-out 1s forwards;
@@ -146,23 +147,25 @@
   font-size: 1.2rem;
   color: #A1A1AA;
   max-width: 500px;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   line-height: 1.6;
+  margin-top: 1rem;
 }
 
-/* --- Enhanced Button Layout --- */
+/* --- FIXED: Right Side Buttons --- */
 .contact-final-buttons {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  align-items: center;
-  width: 100%;
+  align-items: flex-end;
+  width: auto; /* Changed from 100% to auto */
+  min-width: 300px; /* Ensure minimum width */
 }
 
 .contact-social-links {
   display: flex;
   gap: 1.5rem;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 /* --- Enhanced Primary Button --- */
@@ -183,6 +186,7 @@
   box-shadow: 0 4px 15px rgba(62, 229, 171, 0.3);
   position: relative;
   overflow: hidden;
+  white-space: nowrap; /* Prevent button text wrapping */
 }
 
 .contact-final-button::before {
@@ -221,6 +225,7 @@
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 .contact-final-card::before {
@@ -250,25 +255,53 @@
   color: #3CE5AB;
 }
 
-/* --- Responsive Adjustments --- */
+/* --- FIXED: Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .contact-final-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+  }
+  
+  .contact-final-heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .contact-final-buttons {
+    align-items: center;
+    min-width: auto;
+  }
+  
+  .contact-social-links {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 768px) {
   .contact-final-heading {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
   .contact-final-section {
-    padding: 7rem 1.5rem 3rem;
+    padding: 4rem 2rem 2rem;
   }
   .marquee-content-final {
-    animation-duration: 45s;
+    animation-duration: 40s; /* Faster on mobile */
   }
   .marquee-item {
     font-size: 1rem;
+  }
+  .contact-final-container {
+    gap: 2rem;
+  }
+  .contact-final-subheading {
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .contact-final-heading {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   .contact-social-links {
     flex-direction: column;
@@ -278,7 +311,13 @@
     padding: 1rem 2rem;
     font-size: 1rem;
   }
-  .orb {
-    opacity: 0.5;
+  .contact-final-section {
+    padding: 3rem 1.5rem 2rem;
+  }
+  .marquee-content-final {
+    animation-duration: 30s; /* Even faster on small screens */
+  }
+  .contact-final-subheading {
+    font-size: 0.85rem;
   }
 }

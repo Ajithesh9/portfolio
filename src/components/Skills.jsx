@@ -69,8 +69,8 @@ const primarySkillsData = [
     icon: Settings
   },
   {
-    title: 'Python & Java Programming',
-    description: 'Building robust backend systems and applications with enterprise-grade languages',
+    title: 'Python & Java',
+    description: 'Data Structures & Algorithms, Problem Solving with enterprise grade languages',
     borderColor: '#FFD60A',
     icon: Code
   },

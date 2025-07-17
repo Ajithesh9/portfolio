@@ -47,8 +47,8 @@ const projectsData = [
     accentColor: '#4facfe',
     features: ['Student Rankings', 'Course Catalog', 'Admin Dashboard', 'Responsive Design'],
     status: 'Live',
-    liveLink: '#',
-    sourceLink: '#'
+    liveLink: 'https://aditya-ca-academy.netlify.app/',
+    sourceLink: ''
   },
   {
     id: 4,
@@ -62,7 +62,7 @@ const projectsData = [
     features: ['Interactive Animations', 'Responsive Design', 'Modern UI', 'Performance Optimized'],
     status: 'Live',
     liveLink: '#',
-    sourceLink: '#'
+    sourceLink: ''
   },
   {
     id: 5,
@@ -76,7 +76,7 @@ const projectsData = [
     features: ['Multi-language Support', 'Format Preservation', 'Batch Processing', 'AI-powered Translation'],
     status: 'Open Source',
     liveLink: null,
-    sourceLink: '#'
+    sourceLink: 'https://github.com/amruthaamujuri/Smart-PDF-to-Telugu-Audio-Converter'
   },
   {
     id: 6,
@@ -89,8 +89,8 @@ const projectsData = [
     accentColor: '#FAD087',
     features: ['Real-time Weather', 'Location Search', 'Weather Forecasts', 'Interactive Maps'],
     status: 'Completed',
-    liveLink: '#',
-    sourceLink: '#'
+    liveLink: '',
+    sourceLink: 'https://github.com/Ajithesh9/Weather-application'
   },
 ];
 

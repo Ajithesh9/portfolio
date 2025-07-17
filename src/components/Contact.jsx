@@ -25,16 +25,18 @@ const Contact = () => {
   const [sectionRef, isVisible] = useInView({ threshold: 0.2, triggerOnce: true });
   
   // --- ACTION: Replace with your actual links ---
-  const githubUrl = "https://github.com/your-username";
-  const linkedinUrl = "https://linkedin.com/in/your-profile";
-  const email = "mailto:youremail@gmail.com";
+  const githubUrl = "https://github.com/ajithesh9";
+  const linkedinUrl = "https://www.linkedin.com/in/pedagandham-ajithesh/";
+  const email = "mailto:ajithesh1418@gmail.com";
 
   // Enhanced marquee content with more variety
   const marqueeItems = [
-    "Thanks for visiting my portfolio",
-    "Coded & Crafted with",
-    "Available for freelance work",
     "Let's build something amazing together",
+    "Coded & Crafted with",
+    "Open to new opportunities",
+    "Creative developer & designer",
+    "Let's build something amazing together",
+    "Coded & Crafted with",
     "Open to new opportunities",
     "Creative developer & designer"
   ];
@@ -85,13 +87,15 @@ const Contact = () => {
       </div>
 
       <div className="contact-final-container">
-        <h2 className="contact-final-heading">
-          Let's Build<br/>
-          Together<span className="contact-final-dot">.</span>
-        </h2>
-        <p className="contact-final-subheading">
-          I'm currently available for freelance work and open to discussing new projects.
-        </p>
+        <div className="contact-left-content">
+          <h2 className="contact-final-heading">
+            Let's Build<br/>
+            Together<span className="contact-final-dot">.</span>
+          </h2>
+          <p className="contact-final-subheading">
+            I'm currently available for freelance work and open to discussing new projects.
+          </p>
+        </div>
         
         <div className="contact-final-buttons">
           <a href={email} className="contact-final-button">
