@@ -11,25 +11,23 @@ import {
   Camera
 } from 'lucide-react';
 
-// --- ACTION: Corrected Technology logos imports with absolute paths ---
-// This ensures the build process can always find your assets.
-import htmlLogo from '/src/assets/skills/html5.svg';
-import cssLogo from '/src/assets/skills/css3.svg';
-import jsLogo from '/src/assets/skills/javascript.svg';
-import reactLogo from '/src/assets/skills/react.svg';
-import nodeLogo from '/src/assets/skills/node.js.svg';
-import tailwindLogo from '/src/assets/skills/tailwind_css.svg';
-import NPM from '/src/assets/skills/npm.svg';
-import figmaLogo from '/src/assets/skills/figma.svg';
-import postmanLogo from '/src/assets/skills/postman.svg';
-import MongoDB from '/src/assets/skills/mongodb.svg';
-import Google_Cloud from '/src/assets/skills/google_cloud.svg';
-import gitLogo from '/src/assets/skills/git.svg';
-import githubLogo from '/src/assets/skills/github.svg';
-import pythonLogo from '/src/assets/skills/python.svg';
-import javaLogo from '/src/assets/skills/java.svg';
-import viteLogo from '/src/assets/skills/vite.js.svg';
-
+// Technology logos (using ?url so Vite emits them as assets)
+import htmlLogo from '../assets/skills/html5.svg?url';
+import cssLogo from '../assets/skills/css3.svg?url';
+import jsLogo from '../assets/skills/javascript.svg?url';
+import reactLogo from '../assets/skills/react.svg?url';
+import nodeLogo from '../assets/skills/node.js.svg?url';
+import tailwindLogo from '../assets/skills/tailwind_css.svg?url';
+import npmLogo from '../assets/skills/npm.svg?url';
+import figmaLogo from '../assets/skills/figma.svg?url';
+import postmanLogo from '../assets/skills/postman.svg?url';
+import mongoLogo from '../assets/skills/mongodb.svg?url';
+import gcpLogo from '../assets/skills/google_cloud.svg?url';
+import gitLogo from '../assets/skills/git.svg?url';
+import githubLogo from '../assets/skills/github.svg?url';
+import pythonLogo from '../assets/skills/python.svg?url';
+import javaLogo from '../assets/skills/java.svg?url';
+import viteLogo from '../assets/skills/vite.js.svg?url';
 
 // Skills data array
 const skillsData = [
@@ -39,11 +37,11 @@ const skillsData = [
   { imgSrc: reactLogo, name: 'React', borderColor: '#61DAFB' },
   { imgSrc: nodeLogo, name: 'Node.js', borderColor: '#339933' },
   { imgSrc: tailwindLogo, name: 'Tailwind', borderColor: '#06B6D4' },
-  { imgSrc: NPM, name: 'NPM', borderColor: '#CB3837' },
+  { imgSrc: npmLogo, name: 'NPM', borderColor: '#CB3837' },
   { imgSrc: figmaLogo, name: 'Figma', borderColor: '#F24E1E' },
   { imgSrc: postmanLogo, name: 'Postman', borderColor: '#FF6C37' },
-  { imgSrc: MongoDB, name: 'MongoDB', borderColor: '#47A248' },
-  { imgSrc: Google_Cloud, name: 'GCP', borderColor: '#4285F4' },
+  { imgSrc: mongoLogo, name: 'MongoDB', borderColor: '#47A248' },
+  { imgSrc: gcpLogo, name: 'GCP', borderColor: '#4285F4' },
   { imgSrc: gitLogo, name: 'Git', borderColor: '#F05032' },
   { imgSrc: githubLogo, name: 'GitHub', borderColor: '#e6e6e6' },
   { imgSrc: pythonLogo, name: 'Python', borderColor: '#3776AB' },
@@ -101,18 +99,12 @@ const Skills = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          if (!animatedBorder) {
-            setAnimatedBorder(true);
-          }
+          if (!animatedBorder) setAnimatedBorder(true);
         }
       },
       { threshold: 0.1 }
     );
-
-    if (skillsRef.current) {
-      observer.observe(skillsRef.current);
-    }
-
+    if (skillsRef.current) observer.observe(skillsRef.current);
     return () => observer.disconnect();
   }, [animatedBorder]);
 
@@ -121,23 +113,20 @@ const Skills = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const index = parseInt(entry.target.dataset.index);
-            setVisibleCards(prev => new Set(prev).add(index));
+            const idx = parseInt(entry.target.dataset.index, 10);
+            setVisibleCards((prev) => new Set(prev).add(idx));
           }
         });
       },
       { threshold: 0.3 }
     );
-
-    const cards = document.querySelectorAll('.skill-card');
-    cards.forEach((card) => cardObserver.observe(card));
-
+    document.querySelectorAll('.skill-card')
+      .forEach((card) => cardObserver.observe(card));
     return () => cardObserver.disconnect();
   }, []);
 
   return (
     <section className="skills-section" id="skills" ref={skillsRef}>
-      {/* Animated background particles */}
       <div className="bg-particles">
         {[...Array(50)].map((_, i) => (
           <div
@@ -153,29 +142,24 @@ const Skills = () => {
         ))}
       </div>
 
-      {/* Animated border */}
       <div className={`animated-border ${animatedBorder ? 'animate' : ''}`} />
 
       <div className="skills-container">
-        {/* Skills Header */}
         <div className={`skills-header ${isVisible ? 'visible' : ''}`}>
           <h2>Skills & Expertise</h2>
-          <p>
-            A comprehensive overview of my technical skills and areas of expertise
-          </p>
+          <p>A comprehensive overview of my technical skills and areas of expertise</p>
         </div>
 
-        {/* Primary Skills Section */}
         <div className={`primary-skills-container ${isVisible ? 'visible' : ''}`}>
           <div className="primary-skills-grid">
-            {primarySkillsData.map((skill, index) => {
-              const IconComponent = skill.icon;
+            {primarySkillsData.map((skill, idx) => {
+              const Icon = skill.icon;
               return (
                 <div
-                  key={index}
+                  key={idx}
                   className="primary-skill-card"
                   style={{
-                    animationDelay: `${index * 0.1}s`,
+                    animationDelay: `${idx * 0.1}s`,
                     '--border-color': skill.borderColor
                   }}
                 >
@@ -184,7 +168,7 @@ const Skills = () => {
                     <p>{skill.description}</p>
                   </div>
                   <div className="skill-icon">
-                    <IconComponent size={24} />
+                    <Icon size={24} />
                   </div>
                 </div>
               );
@@ -192,20 +176,19 @@ const Skills = () => {
           </div>
         </div>
 
-        {/* Technology Stack */}
         <div className={`tech-stack-container ${isVisible ? 'visible' : ''}`}>
           <div className="tech-stack-header">
             <h3>Technology Stack</h3>
             <p>Tools and technologies I work with regularly</p>
           </div>
           <div className="skills-grid">
-            {skillsData.map((skill, index) => (
+            {skillsData.map((skill, idx) => (
               <div
-                className={`skill-card ${visibleCards.has(index) ? 'visible' : ''}`}
-                key={index}
-                data-index={index}
+                className={`skill-card ${visibleCards.has(idx) ? 'visible' : ''}`}
+                key={idx}
+                data-index={idx}
                 style={{
-                  animationDelay: `${index * 0.05}s`,
+                  animationDelay: `${idx * 0.05}s`,
                   '--border-color': skill.borderColor
                 }}
               >
