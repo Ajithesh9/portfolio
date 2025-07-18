@@ -7,8 +7,7 @@ import {
   Flame, 
   GitCommit, 
   Rocket, 
-  Trophy, 
-  Briefcase, 
+  Trophy,
   BrainCircuit, 
   GitBranch, 
   Target,
@@ -33,9 +32,9 @@ const useInView = (options) => {
 
 const statsData = [
   { icon: Flame, value: "1", label: "Years of Experience", color: "#FF6B35" },
-  { icon: GitBranch, value: "21", label: "GitHub Repositories", color: "#00D4FF" },
+  { icon: GitBranch, value: "22", label: "GitHub Repositories", color: "#00D4FF" },
   { icon: GitCommit, value: "360+", label: "GitHub Contributions", color: "#f472b6" },
-  { icon: Rocket, value: "3", label: "Launched Projects", color: "#9D4EDD" },
+  { icon: Rocket, value: "4", label: "Launched Projects", color: "#9D4EDD" },
   { icon: Trophy, value: "4", label: "Participated Hackathons", color: "#FFD60A" },
   { icon: Target, value: "7", label: "Total Certifications", color: "#3CE5AB" }
 ];
@@ -75,7 +74,16 @@ const StatsGrid = ({ isVisible }) => {
                 <IconComponent size={28} style={{ color: stat.color }} />
               </div>
               <div className="stat-content">
-                <div className="stat-value"><CountUp end={parseInt(stat.value)} duration={2.5} suffix={stat.value.includes('+') ? '+' : ''} /></div>
+                <div className="stat-value">
+                  {/* UPDATED: Added enableScrollSpy to trigger the count animation on scroll */}
+                  <CountUp 
+                    end={parseInt(stat.value)} 
+                    duration={2.5} 
+                    suffix={stat.value.includes('+') ? '+' : ''}
+                    enableScrollSpy
+                    scrollSpyOnce
+                  />
+                </div>
                 <div className="stat-label">{stat.label}</div>
               </div>
             </div>
