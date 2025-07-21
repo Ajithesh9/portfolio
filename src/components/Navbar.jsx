@@ -9,30 +9,45 @@ import { FiLock, FiMenu, FiX } from 'react-icons/fi';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // --- NEW, SIMPLE, AND RELIABLE LOGIC ---
-  // We track if the user is at the very top of the page.
-  const [isAtTop, setIsAtTop] = useState(true);
+  
+  // --- NEW LOGIC for SCROLL UP/DOWN ---
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      // If user has scrolled more than 100px, they are no longer at the top.
-      if (window.scrollY > 100) {
-        setIsAtTop(false);
+      const currentScrollY = window.scrollY;
+
+      // Make the navbar visible if at the very top OR scrolling up
+      if (currentScrollY < lastScrollY || currentScrollY < 100) {
+        setIsNavbarVisible(true);
       } else {
-        setIsAtTop(true);
+        setIsNavbarVisible(false);
       }
+      
+      // Update the last scroll position
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []); // This runs only once.
+  }, [lastScrollY]); // Re-run the effect when lastScrollY changes
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => {
+    // When opening the mobile menu, ensure the navbar is visible
+    if (!isMenuOpen) {
+      setIsNavbarVisible(true);
+    }
+    setIsMenuOpen(!isMenuOpen);
+  };
+  
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    // The 'is-visible' class is now simply controlled by the 'isAtTop' state.
-    <nav className={`navbar ${isAtTop ? 'is-visible' : ''}`}>
+    // The 'is-visible' class is now controlled by the new scroll direction logic
+    // We also add a class to prevent hiding when the mobile menu is open
+    <nav className={`navbar ${isNavbarVisible || isMenuOpen ? 'is-visible' : ''}`}>
       <div className="navbar-container">
         <a href="/" className="logo">
           <TerminalSquare size={28} className="logo-icon" />
