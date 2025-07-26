@@ -19,7 +19,7 @@ const projectsData = [
     accentColor: '#667eea',
     features: ['Task Management', 'Time Tracking', 'Team Collaboration', 'Analytics Dashboard'],
     status: 'Completed',
-    liveLink: '#',
+    liveLink: 'https://the-productivity-hub.netlify.app/',
     sourceLink: '#'
   },
   {
