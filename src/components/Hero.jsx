@@ -3,7 +3,7 @@ import '../Hero.css';
 import Navbar from './Navbar.jsx';
 
 // Icons from react-icons
-import { FiMail, FiEye, FiGithub, FiLinkedin } from 'react-icons/fi';
+import { FiDownload, FiEye, FiGithub, FiLinkedin } from 'react-icons/fi';
 import { SiGooglecloud } from 'react-icons/si';
 
 const Hero = () => {
@@ -43,10 +43,10 @@ const Hero = () => {
 
         <div className="hero-actions">
           <a
-            href="mailto:ajithesh1418@gmail.com"
-            className="cta-button primary"
+            href="https://drive.google.com/file/d/1_WQIP-0Y6Xyk6ZJji0AoIO8X-T94-zDU/view?usp=sharing"
+            className="cta-button primary" target="_blank"
           >
-            <FiMail /> Contact Me
+            <FiDownload /> Download Resume
           </a>
           <a href="#projects" className="cta-button secondary">
             <FiEye /> View Projects

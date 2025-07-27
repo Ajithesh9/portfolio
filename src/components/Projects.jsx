@@ -19,8 +19,8 @@ const projectsData = [
     accentColor: '#667eea',
     features: ['Task Management', 'Time Tracking', 'Team Collaboration', 'Analytics Dashboard'],
     status: 'Completed',
-    liveLink: '#',
-    sourceLink: '#'
+    liveLink: 'https://the-productivity-hub.netlify.app/',
+    sourceLink: 'https://github.com/Ajithesh9/productivity-hub'
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ const projectsData = [
     features: ['Local Network Streaming', 'Multi-device Support', 'Media Library', 'Auto-discovery'],
     status: 'Completed',
     liveLink: null,
-    sourceLink: '#'
+    sourceLink: 'https://github.com/amruthaamujuri/Smart-PDF-to-Telugu-Audio-Converter'
   },
   {
     id: 3,
