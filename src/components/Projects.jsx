@@ -61,7 +61,7 @@ const projectsData = [
     accentColor: '#fa709a',
     features: ['Interactive Animations', 'Responsive Design', 'Modern UI', 'Performance Optimized'],
     status: 'Live',
-    liveLink: '#',
+    liveLink: 'https://ajithesh9.netlify.app/',
     sourceLink: ''
   },
   {
