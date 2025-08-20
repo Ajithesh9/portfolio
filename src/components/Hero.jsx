@@ -43,7 +43,7 @@ const Hero = () => {
 
         <div className="hero-actions">
           <a
-            href="https://drive.google.com/file/d/1_WQIP-0Y6Xyk6ZJji0AoIO8X-T94-zDU/view?usp=sharing"
+            href="https://drive.google.com/file/d/1G6LoBpBD4nogIx8Lnp_b859AzAnMK8Dx/view?usp=sharing"
             className="cta-button primary" target="_blank"
           >
             <FiDownload /> Download Resume
