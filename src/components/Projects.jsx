@@ -1,15 +1,27 @@
-// src/components/Projects.jsx
-
 import React, { useState, useEffect, useRef } from 'react';
 import '../Projects.css';
 import { 
   Layers, Monitor, GraduationCap, User, FileText, Cloud,
-  Link, Github, Zap 
+  Link, Github, Zap, Shield
 } from 'lucide-react';
 
 const projectsData = [
   {
     id: 1,
+    title: 'Watcher - SaaS Platform',
+    description: 'A comprehensive parental monitoring SaaS featuring secure Stripe subscriptions, an admin dashboard for revenue analytics, and real-time device tracking capabilities.',
+    category: 'Web Application',
+    technologies: ['MERN Stack', 'Stripe', 'Tailwind', 'JWT'],
+    icon: Shield,
+    gradient: 'linear-gradient(135deg, #BB86FC 0%, #3700B3 100%)',
+    accentColor: '#BB86FC',
+    features: ['Stripe Payments', 'Admin Dashboard', 'Role-Based Access', 'Secure Auth'],
+    status: 'Live',
+    liveLink: 'https://www.one89.in/',
+    sourceLink: 'https://github.com/ajithesh9/one-store'
+  },
+  {
+    id: 2,
     title: 'The Productivity Hub',
     description: 'A comprehensive platform that combines task management, time tracking, and collaboration tools to boost team efficiency.',
     category: 'Web Application',
@@ -23,7 +35,7 @@ const projectsData = [
     sourceLink: 'https://github.com/Ajithesh9/productivity-hub'
   },
   {
-    id: 2,
+    id: 3,
     title: 'CineStream Local',
     description: 'A local network streaming platform built with Python that allows seamless movie and video streaming within your home network.',
     category: 'Desktop Application',
@@ -37,7 +49,7 @@ const projectsData = [
     sourceLink: 'https://github.com/amruthaamujuri/Smart-PDF-to-Telugu-Audio-Converter'
   },
   {
-    id: 3,
+    id: 4,
     title: 'Aditya CA Portal',
     description: 'A modern website for Aditya CA Academy featuring student rankings, course information, and administrative tools.',
     category: 'Website',
@@ -48,20 +60,6 @@ const projectsData = [
     features: ['Student Rankings', 'Course Catalog', 'Admin Dashboard', 'Responsive Design'],
     status: 'Live',
     liveLink: 'https://aditya-ca-academy.netlify.app/',
-    sourceLink: ''
-  },
-  {
-    id: 4,
-    title: 'Personal Portfolio',
-    description: 'A sleek and modern portfolio website showcasing my skills, projects, and professional journey with interactive animations.',
-    category: 'Website',
-    technologies: ['React', 'CSS3', 'JavaScript', 'Lucide Icons'],
-    icon: User,
-    gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-    accentColor: '#fa709a',
-    features: ['Interactive Animations', 'Responsive Design', 'Modern UI', 'Performance Optimized'],
-    status: 'Live',
-    liveLink: 'https://ajithesh9.netlify.app/',
     sourceLink: ''
   },
   {
