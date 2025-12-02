@@ -9,13 +9,14 @@ const projectsData = [
   {
     id: 1,
     title: 'Watcher - SaaS Platform',
-    description: 'A comprehensive parental monitoring SaaS featuring secure Stripe subscriptions, an admin dashboard for revenue analytics, and real-time device tracking capabilities.',
+    description: 'A beautifully designed SaaS platform with secure JWT login and seamless Stripe integration. Customers receive instant product access after payment, while admins manage sales via a dedicated dashboard.',
     category: 'Web Application',
     technologies: ['MERN Stack', 'Stripe', 'Tailwind', 'JWT'],
     icon: Shield,
-    gradient: 'linear-gradient(135deg, #BB86FC 0%, #3700B3 100%)',
-    accentColor: '#BB86FC',
-    features: ['Stripe Payments', 'Admin Dashboard', 'Role-Based Access', 'Secure Auth'],
+    // Using a distinct Red/Rose gradient not found in other projects
+    gradient: 'linear-gradient(135deg, #F43F5E 0%, #BE123C 100%)',
+    accentColor: '#F43F5E',
+    features: ['Stripe Integration', 'JWT Authentication', 'Admin Dashboard', 'Instant Product Access'],
     status: 'Live',
     liveLink: 'https://www.one89.in/',
     sourceLink: 'https://github.com/ajithesh9/one-store'
