@@ -9,16 +9,15 @@ const projectsData = [
   {
     id: 1,
     title: 'Watcher - SaaS Platform',
-    description: 'A beautifully designed SaaS platform with secure JWT login and seamless Stripe integration. Customers receive instant product access after payment, while admins manage sales via a dedicated dashboard.',
+    description: 'A beautifully designed SaaS platform with secure JWT login and seamless Stripe integration. Customers receive instant product access after payment, while admins manage sales and orders via a dedicated dashboard.',
     category: 'Web Application',
     technologies: ['MERN Stack', 'Stripe', 'Tailwind', 'JWT'],
     icon: Shield,
-    // Using a distinct Red/Rose gradient not found in other projects
     gradient: 'linear-gradient(135deg, #F43F5E 0%, #BE123C 100%)',
     accentColor: '#F43F5E',
     features: ['Stripe Integration', 'JWT Authentication', 'Admin Dashboard', 'Instant Product Access'],
     status: 'Live',
-    liveLink: 'https://www.one89.in/',
+    liveLink: 'https://one-store-89.vercel.app/',
     sourceLink: 'https://github.com/ajithesh9/one-store'
   },
   {
@@ -26,7 +25,7 @@ const projectsData = [
     title: 'The Productivity Hub',
     description: 'A comprehensive platform that combines task management, time tracking, and collaboration tools to boost team efficiency.',
     category: 'Web Application',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
+    technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Firebase'],
     icon: Layers,
     gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     accentColor: '#667eea',
