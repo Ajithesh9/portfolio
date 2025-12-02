@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../Projects.css';
-import { 
+import {
   Layers, Monitor, GraduationCap, User, FileText, Cloud,
   Link, Github, Zap, Shield
 } from 'lucide-react';
@@ -8,7 +8,7 @@ import {
 const projectsData = [
   {
     id: 1,
-    title: 'Watcher - SaaS Platform',
+    title: 'Watcher - SaaS',
     description: 'A beautifully designed SaaS platform with secure JWT login and seamless Stripe integration. Customers receive instant product access after payment, while admins manage sales and orders via a dedicated dashboard.',
     category: 'Web Application',
     technologies: ['MERN Stack', 'Stripe', 'Tailwind', 'JWT'],
@@ -137,7 +137,7 @@ const Projects = () => {
     }
   };
 
-  const filteredProjects = projectsData.filter(project => 
+  const filteredProjects = projectsData.filter(project =>
     activeFilter === 'All' || project.category === activeFilter
   );
 
@@ -185,7 +185,7 @@ const Projects = () => {
                     <div className="tech-stack">{project.technologies.map((t, i) => (<span key={i} className="tech-tag">{t}</span>))}</div>
                     <div className="project-features">
                       <h4>Key Features:</h4>
-                      <ul>{project.features.map((f, i) => (<li key={i}><Zap size={12}/> {f}</li>))}</ul>
+                      <ul>{project.features.map((f, i) => (<li key={i}><Zap size={12} /> {f}</li>))}</ul>
                     </div>
                   </div>
                   <div className="project-actions">
